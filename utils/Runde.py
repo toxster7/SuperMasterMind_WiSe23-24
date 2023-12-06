@@ -10,14 +10,5 @@ class Feedback:
         self.nRightColorRightPosition = nRightColorRightPosition
         self.nRightColor = nRightColor
 
-class Farben(Enum):
-    BLAU = '1'
-    DIENSTAG = 2
-    MITTWOCH = 3
-    DONNERSTAG = 4
-    FREITAG = 5
-    SAMSTAG = 6
-    SONNTAG = 7
-
 class Code:
     pass
