@@ -12,6 +12,7 @@ class Supermastermind:
         self.spielfeld = Spielfeld()
         self.menu = Menu()
         self.laeuft = False
+        self.gameLoop()
 
     def resetGame(self) -> None:
         self.runden = []
@@ -27,4 +28,5 @@ class Supermastermind:
 
 
 if __name__ == "__main__":
+    sm = Supermastermind()
     pass
