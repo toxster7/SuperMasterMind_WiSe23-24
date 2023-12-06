@@ -29,6 +29,11 @@ class Menu:
 
     def displayMenu(self) -> None:
 
+        """
+        diese funktion dient dazu, das start menü,
+        für das spiel anzuzeigen
+        """
+
         print(
         """
                  __,                     ,__
