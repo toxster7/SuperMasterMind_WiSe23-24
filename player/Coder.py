@@ -37,4 +37,13 @@ class HumanCoder(Coder):
     def giveFeedback(self) -> Feedback:
         return Feedback(0,0)
 
+class NetCoder(Coder):
+
+    def __init__(self, ip, port) -> None:
+        super().__init__()
+        self.ip = ip
+        self.port = port
+
+    
+
     

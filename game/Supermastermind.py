@@ -6,6 +6,7 @@ from gui import Menu
 class Supermastermind:
 
     def __init__(self) -> None:
+        self.id = None
         self.runden = []
         self.rater = None
         self.coder = None
@@ -29,4 +30,4 @@ class Supermastermind:
 
 if __name__ == "__main__":
     sm = Supermastermind()
-    pass
+    
