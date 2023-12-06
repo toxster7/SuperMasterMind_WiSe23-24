@@ -1,3 +1,8 @@
+import sys
+sys.path.append('../wise23-24_superhirn_25/')
+
+from utils.CodeColors import CodeColors
+
 class Runde:
 
     def __init__(self,code ,feedback) -> None:
@@ -13,4 +18,6 @@ class Feedback:
 class Code:
     
     def __init__(self, code_string) -> None:
-        pass
+        self
+        for c in code_string:
+            pass

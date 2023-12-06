@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../wise23-24_superhirn_25/')
+
 from utils.Runde import Code
 from utils.Runde import Feedback
 from utils.Runde import Runde

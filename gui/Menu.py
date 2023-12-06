@@ -1,5 +1,6 @@
 from termcolor import cprint, colored
-
+import sys
+sys.path.append('../wise23-24_superhirn_25/')
 
 class Menu:
 
