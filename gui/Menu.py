@@ -35,7 +35,7 @@ class Menu:
         self.auswahl       = ""
 
 
-    def getUserInput( self ) -> str:
+    def getUserSelection( self ) -> str:
         
         """
         
@@ -69,7 +69,7 @@ class Menu:
         # eingabe des benutzer in einem attr
         # speichern
         
-        self.auswahl = self.getUserInput()
+        self.auswahl = self.getUserSelection()
 
         # sollte die eingabe des benutzers 2 sein
         # wird das spiel beendet
@@ -92,7 +92,7 @@ class Menu:
             
             OsChecker.clearTerminal()
             MenuPrinter.displayRoleType()
-            self.auswahl = self.getUserInput()
+            self.auswahl = self.getUserSelection()
 
             if self.auswahl == "1":
 
@@ -100,8 +100,9 @@ class Menu:
                 # aufruf des menüs, das den gametype bestimmt
                 
                 OsChecker.clearTerminal() 
-                MenuPrinter.displayGameType()
-            
+                MenuPrinter.displayGameType() 
+                self.auswahl = self.getUserSelection()
+
             elif self.auswahl == "2":
 
 
@@ -110,7 +111,7 @@ class Menu:
                 
                 OsChecker.clearTerminal()
                 MenuPrinter.displayGameType()
-
+                self.auswahl = self.getUserSelection()
 
 # nur für das testen hier,
 # wenn später aufgerufen,
