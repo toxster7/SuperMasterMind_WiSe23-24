@@ -27,11 +27,13 @@ class Supermastermind:
 
     def gameLoop(self) -> None:
         while (True):
+            self.menu.showMenu()
             user_input = input("Start Game: (y/n)")
-            if(len(user_input) > 20):
-                
+            self.laeuft = True
+            
             while self.laeuft:
-                print("laeuft")
+                self.spielfeld.display_interface("TEst")
+                user_input = input("End Game: (y/n)")
                 return
 
 
