@@ -1,40 +1,30 @@
 import argparse
 import time
+from gui import Spielfeld
+from gui import Menu
 
-
-class Spieler:
-    
-    def __init__(self) -> None:
-        pass
-
-
-class Rater(Spieler):
+class Supermastermind:
 
     def __init__(self) -> None:
-        super().__init__()
-        self.versuch = ""
+        self.runden = []
+        self.rater = None
+        self.coder = None
+        self.spielfeld = Spielfeld()
+        self.menu = Menu()
+        self.laeuft = False
 
-    def gibLoesungsvorschlag():
-        pass
-     
+    def resetGame(self) -> None:
+        self.runden = []
+        self.rater = None
+        self.coder = None
+        self.laeuft = False
 
-class Versuch:
-    
-    def __init__(self) -> None:
-        self.versuch = ""
-        self.hinweis = ""
-
-    def validate():
-        pass
-
-
-class Hinweis:
-    def __init__(self) -> None:
-        pass
-
-
+    def gameLoop(self)->None:
+        while(True): 
+            
+            while self.laeuft:
+                print("laeuft")
 
 
 if __name__ == "__main__":
-    test = Spielfeld()
-    test.main()
+    pass

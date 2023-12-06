@@ -13,5 +13,4 @@ class Feedback:
 class Code:
     
     def __init__(self, code_string) -> None:
-        
-        
+        pass

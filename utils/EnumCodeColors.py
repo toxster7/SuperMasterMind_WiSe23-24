@@ -10,6 +10,7 @@ class CodeColors:
     def __init__(self) -> None:
         
         self.colors = {}
+        
         self.colors[1]   = "black"
         self.colors[2]     = "red"
         self.colors[3]   = "green"
