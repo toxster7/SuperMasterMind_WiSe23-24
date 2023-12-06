@@ -11,4 +11,7 @@ class Feedback:
         self.nRightColor = nRightColor
 
 class Code:
-    pass
+    
+    def __init__(self, code_string) -> None:
+        
+        
