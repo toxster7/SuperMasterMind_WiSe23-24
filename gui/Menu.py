@@ -1,10 +1,13 @@
 from termcolor import cprint, colored
 import sys
+import os
 sys.path.append('../wise23-24_superhirn_25/')
+from MenuPrinter import * 
+
 
 class Menu:
 
-    def __init__(self) -> None:
+    def __init__( self ) -> None:
 
         """
         konstruktor der klasse Menu
@@ -32,41 +35,85 @@ class Menu:
         @return self.auswahl <str> - gibt die auswahl als str zurück
 
         """
-        self.auswahl = input("\t\t\t[*] Option: ")
+        # man hätte es auch in one line schreiben können,
+        # aber mit dem cprint sieht es einfach cooler aus :)
+
+        cprint( "\t\t\t[*] Optionen: ", "yellow", end="" )
+        self.auswahl = input( )
 
         return self.auswahl
 
 
-    def displayMenu( self ) -> None:
+    def runMenus( self ):
 
         """
-        diese funktion dient dazu, das start menü,
-        für das spiel anzuzeigen
+        diese funktion dient zum anzeigen der menüs
+        die der benutzer durchlaufen muss, um das 
+        spiel zu start
+        
         """
+        # anzeigen des start menüs und
+        # danach auf die user eingabe warten
 
-        print(
-        """
-                 __,                     ,__
-             __/==+\      Spielmenü     /+==\__
-                "  "`  ================ '"  "
+        MenuPrinter.displayMenu()
+
+        # eingabe des benutzer in einem attr
+        # speichern
+        
+        self.auswahl   = self.getUserInput()
+
+        # sollte die eingabe des benutzers 2 sein
+        # wird das spiel beendet
+        #
+        # wenn die zahl 1 ist wird das nächste menü
+        # aufgerufen
+        
+        if self.auswahl == "2":
+
+            # das spiel wird einfach beendet    
+            crint( "[+] Aufwieder sehen :)", "green" )
+            sys.exit( 0 )
+
+        elif self.auswahl == "1":
+
+            # erhöhen des menü counters
+            # das "clear" sorgt dafür, das immer nur, das
+            # aktuell menü angezeigt
+            # TODO: os chekcen, das ein unterschiedliches command ist
+
+            select_counter += 1
+            os.system("clear")
             
-            +------------------------------------+
-            | Superhirn ein Logikspiel für deine |
-            |           high performance!        |
-            |   Bitte wähle einer der Optionen:  |
-            |                                    |
-            |                                    |
-            |       [1] Spiel starten            |
-            |       [2] Spiel beenden            |
-            +------------------------------------+
-        """
-        )
+            # aufruf des menüs, das die rollen anzeigt
+            # erneut die eingabe des benutzer abwarten
+            MenuPrinter.displayRoleType()
+            self.auswahl = self.getUserInput()
 
-    def runMenu( self ):
+            if self.auswahl == "1":
+                
+                os.system("clear")
 
-        self.displayMenu()
-        a = self.getUserInput()
-        print(a)
+                # aufruf des menüs, das den gametype bestimmt
+                MenuPrinter.displayGameType()
+            
+            elif self.auswahl == "2":
 
-m = Menu()
-m.runMenu()
+                os.system("clear")
+                MenuPrinter.displayGameType()
+
+
+# nur für das testen hier,
+# wenn später aufgerufen,
+# dann sollte das in die main klasse!
+
+try:
+
+    m = Menu()
+    m.runMenus()
+
+except KeyboardInterrupt as key_inter:
+    
+    print()
+    cprint( "\t\t\t[-] Immer diese Interrupts :(", "red" )
+    cprint( "\t\t\t[+] Exiting...", "green" )
+    sys.exit(0)
