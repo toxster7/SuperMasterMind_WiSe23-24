@@ -2,10 +2,19 @@ from termcolor import cprint, colored
 import sys
 import os
 sys.path.append('../wise23-24_superhirn_25/')
+# own modules
 from MenuPrinter import * 
-
+from OsChecker import *
 
 class Menu:
+    """
+    diese klasse dient dazu die unterschiedliche menüs anzuzeigen,
+    welche der user durchlafen muss.
+    des weiteren, nimmt diese klasse eingaben des nutzer entgegen,
+    die für das spiel notwendig sind
+    
+    @authro: Ilai, Berkan
+    """
 
     def __init__( self ) -> None:
 
@@ -26,7 +35,7 @@ class Menu:
         self.auswahl       = ""
 
 
-    def getUserInput( self ):
+    def getUserInput( self ) -> str:
         
         """
         
@@ -60,7 +69,7 @@ class Menu:
         # eingabe des benutzer in einem attr
         # speichern
         
-        self.auswahl   = self.getUserInput()
+        self.auswahl = self.getUserInput()
 
         # sollte die eingabe des benutzers 2 sein
         # wird das spiel beendet
@@ -76,29 +85,30 @@ class Menu:
 
         elif self.auswahl == "1":
 
-            # erhöhen des menü counters
-            # das "clear" sorgt dafür, das immer nur, das
-            # aktuell menü angezeigt
-            # TODO: os chekcen, das ein unterschiedliches command ist
-
-            select_counter += 1
-            os.system("clear")
-            
+            # die func clearTerminal sorgt dafür, dass immer nur, das
+            # aktuell menü angezeigt, da es das terminal cleart 
             # aufruf des menüs, das die rollen anzeigt
             # erneut die eingabe des benutzer abwarten
+            
+            OsChecker.clearTerminal()
             MenuPrinter.displayRoleType()
             self.auswahl = self.getUserInput()
 
             if self.auswahl == "1":
-                
-                os.system("clear")
 
+                # clearen des terminals   
                 # aufruf des menüs, das den gametype bestimmt
+                
+                OsChecker.clearTerminal() 
                 MenuPrinter.displayGameType()
             
             elif self.auswahl == "2":
 
-                os.system("clear")
+
+                # clearen des terminals   
+                # aufruf des menüs, das den gametype bestimmt
+                
+                OsChecker.clearTerminal()
                 MenuPrinter.displayGameType()
 
 

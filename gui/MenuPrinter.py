@@ -6,8 +6,10 @@ class MenuPrinter:
     1. displayMenu -> zeigt das start menu an
     2. displayRoleType -> zeigt die möglichen rolle an
     3. displayGameType -> zeigt die möglichen spielmodi
+
+    @authro: Ilai, Berkan
     """
-    def displayMenu():
+    def displayMenu() -> None:
 
         """
         diese funktion dient dazu, das start menü,
