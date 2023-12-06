@@ -23,12 +23,21 @@ class Menu:
         self.auswahl       = ""
 
 
-    def getUserInput():
-        pass
+    def getUserInput( self ):
+        
+        """
+        
+        diese funktion dient dazu, den intput bzw.
+        die auswahl des benutzer entgegenzunehmen
+        @return self.auswahl <str> - gibt die auswahl als str zurück
+
+        """
+        self.auswahl = input("\t\t\t[*] Option: ")
+
+        return self.auswahl
 
 
-
-    def displayMenu(self) -> None:
+    def displayMenu( self ) -> None:
 
         """
         diese funktion dient dazu, das start menü,
@@ -44,14 +53,20 @@ class Menu:
             +------------------------------------+
             | Superhirn ein Logikspiel für deine |
             |           high performance!        |
+            |   Bitte wähle einer der Optionen:  |
+            |                                    |
+            |                                    |
+            |       [1] Spiel starten            |
+            |       [2] Spiel beenden            |
             +------------------------------------+
-
-                    [1] Spiel starten
-                    [2] Spiel beenden
-
         """
         )
 
-m = Menu()
-m.displayMenu()
+    def runMenu( self ):
 
+        self.displayMenu()
+        a = self.getUserInput()
+        print(a)
+
+m = Menu()
+m.runMenu()
