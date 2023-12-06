@@ -1,7 +1,11 @@
 import argparse
 import time
-import gui.Menu as Menu
-import gui.Spielfeld as Spielfeld
+
+import sys
+sys.path.append('../wise23-24_superhirn_25/')
+
+from gui.Menu import Menu
+from gui.Spielfeld import Spielfeld
 
 class Supermastermind:
 
@@ -23,10 +27,13 @@ class Supermastermind:
 
     def gameLoop(self) -> None:
         while (True):
-
+            user_input = input("Start Game: (y/n)")
+            if(len(user_input) > 20):
+                
             while self.laeuft:
                 print("laeuft")
+                return
 
 
-if __name__ == "__main__":
-    sm = Supermastermind()
+
+sm = Supermastermind()
