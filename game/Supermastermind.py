@@ -1,9 +1,7 @@
 import argparse
 import time
-
-from gui.Menu import Menu
-from gui.Spielfeld import Spielfeld
-
+import gui.Menu as Menu
+import gui.Spielfeld as Spielfeld
 
 class Supermastermind:
 
