@@ -20,3 +20,4 @@ class Farben(Enum):
     SONNTAG = 7
 
 class Code:
+    pass
