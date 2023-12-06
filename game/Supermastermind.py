@@ -1,7 +1,9 @@
 import argparse
 import time
-from gui import Spielfeld
-from gui import Menu
+
+from gui.Menu import Menu
+from gui.Spielfeld import Spielfeld
+
 
 class Supermastermind:
 
@@ -21,13 +23,12 @@ class Supermastermind:
         self.coder = None
         self.laeuft = False
 
-    def gameLoop(self)->None:
-        while(True): 
-            
+    def gameLoop(self) -> None:
+        while (True):
+
             while self.laeuft:
                 print("laeuft")
 
 
 if __name__ == "__main__":
     sm = Supermastermind()
-    
