@@ -1,4 +1,5 @@
 from termcolor import cprint
+from GuiValidater import *
 
 class InputHandler:
 
@@ -57,18 +58,31 @@ class InputHandler:
         diese funktion nimmt die spieloptionen des nutzers
         entgegen und speichert diese in den klassen attr
         """
+        # erstellen eines validater obj
+        # dient dazu um die user eingaben
+        # auf korrektheit zu prüfen
+        #
+        # die checker sind nicht gut gelöst
+        # TODO: bessere idee
 
+        validater     = GuiValidater()
+        check_input_1 = True
+        check_input_2 = True
+            
         cprint("\t\t[*] Gebe deine Username ein: ", "yellow", end="")
         self.gamer_id = input()
-        
-        # TODO add checks for numbers!
-        cprint("\t\t[*] Mit wie vielen Farben möchtest Du spielen [min 2 - max 8]: ", "yellow", end="")
-        self.anzahl_farben = input()
-        
-        # TODO add chechks for numbers!
-        cprint("\t\t[*] Mit wie vielen Feldern möchtest Du spielen [min 4 - max 5]: ", "yellow", end="")
-        self.anzahl_pos = input()
 
+        while check_input_1:
+        
+            cprint("\t\t[*] Mit wie vielen Farben möchtest Du spielen [min 2 - max 8]: ", "yellow", end="")
+            self.anzahl_farben = input()
+            check_input_1      = validater.validateRangeNumbers( self.anzahl_farben )
+
+        while check_input_2:
+            
+            cprint("\t\t[*] Mit wie vielen Feldern möchtest Du spielen [min 4 - max 5]: ", "yellow", end="")
+            self.anzahl_pos = input()
+            check_input_2   = validater.validateRangeNumbers( self.anzahl_pos )
         
         if not local_game:
 
@@ -96,10 +110,10 @@ class InputHandler:
         # jedes attr bekommt einen eigenen key
 
         user_settings = { 
-                         "Game ID"      : self.game_id, 
-                         "Gamer ID"     : self.gamer_id,
-                         "anzahl Farben": self.anzahl_farben,
-                         "anzahl POS"   : self.anzahl_pos
+                         "game_id"      : self.game_id, 
+                         "gamer_id"     : self.gamer_id,
+                         "anzahl_farben": self.anzahl_farben,
+                         "anzahl_pos"   : self.anzahl_pos
                         }
         
         # es muss überprüft werden, ob das spiel nur lokal
@@ -112,7 +126,9 @@ class InputHandler:
             # hinzufügen der url/server adr. und server port
 
             user_settings["URL"]  = self.server_addr
-            user_settings["Port"] = self.server_port
+            user_settings["port"] = self.server_port
 
         return user_settings
+
+
 
