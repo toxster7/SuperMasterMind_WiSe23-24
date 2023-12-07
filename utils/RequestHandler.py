@@ -20,15 +20,17 @@ class RequestHandler:
 
 
         self.json_schema = ""
-        self.postURL = "http://localhost:8080"
+        self.postURL = "http://localhost"
+        self.postPort = "8080"
 
-    def eingabePOSTZiel(self, ziel):
+    def eingabePOSTZiel(self, ziel, zielPort):
         """
 
         :param ziel:
         :return:
         """
         self.postURL = ziel
+        self.postPort = zielPort
 
     def readFile(self):
         """
@@ -57,7 +59,7 @@ class RequestHandler:
         self.json_schema["colors"]["type"] = colors
         self.json_schema["value"]["type"] = value
 
-        response = requests.post(self.postURL, json=self.json_schema,
+        response = requests.post(self.postURL + ":" + self.postPort, json=self.json_schema,
                                  headers={'Content-type': 'application/json; charset=utf-8'})
 
         if response.status_code == 200:
@@ -72,8 +74,8 @@ class RequestHandler:
             print("Zug nicht erfolgreich abgeschickt. Status: " + str(response.status_code))
 
     def getResponse(self, response):
-        responseJSON = json.load(response.json())
-        #responseJSON = self.json_schema
+        #responseJSON = json.load(response.json())
+        responseJSON = self.json_schema
         self.gameid = responseJSON["gameid"]["type"]
         self.gamerid = responseJSON["gamerid"]["type"]
         self.positions = responseJSON["positions"]["type"]
@@ -87,10 +89,10 @@ class RequestHandler:
             "colors": self.colors,
             "value": self.value
         }
-        print(moveDict)
+        #print(moveDict)
         return moveDict
 
 
-a = RequestHandler()
-a.readFile()
-a.sendRequest(55, "Ilai", 4, 4, "Valie")
+#a = RequestHandler()
+#a.readFile()
+#a.sendRequest(55, "Ilai", 4, 4, "Valie")
