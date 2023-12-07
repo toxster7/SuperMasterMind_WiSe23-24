@@ -5,6 +5,7 @@ sys.path.append('../wise23-24_superhirn_25/')
 # own modules
 from MenuPrinter import * 
 from OsChecker import *
+from InputHandler import *
 
 class Menu:
     """
@@ -22,36 +23,9 @@ class Menu:
         konstruktor der klasse Menu
     
         # init der klassen attr.
-        # gamer_id - ist der name des spielers
-        # game_id - ist die nummer des spiels
-        # anzahl_farben - auswahl der farben mit denen gespielt wird
-        # anzahl_pos - auswahl der positionen mit denen gespielt wird
+        # auswahl - ist die menü auswahl
         """
-
-        self.gamer_id      = ""
-        self.game_id       = 0
-        self.anzahl_farben = 0
-        self.anzahl_pos    = 0
-        self.auswahl       = ""
-
-
-    def getUserSelection( self ) -> str:
-        
-        """
-        
-        diese funktion dient dazu, den intput bzw.
-        die auswahl des benutzer entgegenzunehmen
-        @return self.auswahl <str> - gibt die auswahl als str zurück
-
-        """
-        # man hätte es auch in one line schreiben können,
-        # aber mit dem cprint sieht es einfach cooler aus :)
-
-        cprint( "\t\t\t[*] Optionen: ", "yellow", end="" )
-        self.auswahl = input( )
-
-        return self.auswahl
-
+        self.auswahl = ""
 
     def runMenus( self ):
 
@@ -69,7 +43,7 @@ class Menu:
         # eingabe des benutzer in einem attr
         # speichern
         
-        self.auswahl = self.getUserSelection()
+        self.auswahl = InputHandler.getUserSelection(self)
 
         # sollte die eingabe des benutzers 2 sein
         # wird das spiel beendet
@@ -92,7 +66,7 @@ class Menu:
             
             OsChecker.clearTerminal()
             MenuPrinter.displayRoleType()
-            self.auswahl = self.getUserSelection()
+            self.auswahl = InputHandler.getUserSelection( self )
 
             if self.auswahl == "1":
 
@@ -101,7 +75,7 @@ class Menu:
                 
                 OsChecker.clearTerminal() 
                 MenuPrinter.displayGameType() 
-                self.auswahl = self.getUserSelection()
+                self.auswahl = InputHandler.getUserSelection( self )
 
             elif self.auswahl == "2":
 
@@ -111,7 +85,7 @@ class Menu:
                 
                 OsChecker.clearTerminal()
                 MenuPrinter.displayGameType()
-                self.auswahl = self.getUserSelection()
+                self.auswahl = InputHandler.getUserSelection( self )
 
 # nur für das testen hier,
 # wenn später aufgerufen,
