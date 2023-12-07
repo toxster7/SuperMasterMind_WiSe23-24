@@ -2,8 +2,20 @@ from termcolor import cprint
 
 class InputHandler:
 
-    def __init__( self ) -> None:
+    # deklarieren von klassen attr
+    game_id       : int
+    gamer_id      : str
+    anzahl_farben : str
+    anzahl_pos    : str
+    server_addr   : str
+    server_port   : str
+    run_locale    : bool 
 
+    def __init__( self ) -> None:
+        pass
+
+    def __attrs_post_init__( self ):
+        
         """
         konstruktor der klasse Menu
 
@@ -17,14 +29,13 @@ class InputHandler:
         """
 
         self.gamer_id      = ""
-        self.game_id       = ""
+        self.game_id       = 0
         self.anzahl_farben = ""
         self.anzahl_pos    = ""
         self.server_addr   = ""
         self.server_port   = ""
         self.auswahl       = ""
-        self.run_locale    = False
-
+        self.run_locale    = True
 
     def getUserSelection( self ) -> str:
 
@@ -48,23 +59,26 @@ class InputHandler:
         diese funktion nimmt die spieloptionen des nutzers
         entgegen und speichert diese in den klassen attr
         """
-        cprint("\t\t\t[*] Enter your gamer tag: ", "yellow", end="")
+        cprint("\t\t[*] Gebe deine Username ein: ", "yellow", end="")
         self.gamer_id = input()
 
-        cprint("\t\t\t[*] Enter your chois for the colors: ", end="")
+        # TODO add checks for numbers!
+        cprint("\t\t[*] Mit wie vielen Farben möchtest Du spielen [min 2 - max 8]: ", "yellow", end="")
         self.anzahl_farben = input()
-
-        cprint("\t\t\t[*] How many fields do you want to play with [min 4 - max 5]: ", "yellow", end="")
+        
+        # TODO add chechks for numbers!
+        cprint("\t\t[*] Mit wie vielen Feldern möchtest Du spielen [min 4 - max 5]: ", "yellow", end="")
         self.anzahl_pos = input()
+
         
         if not locale_game:
 
-            self.run_locale = loacle_game 
+            self.run_locale = locale_game
             
-            cprint("[*] Bitte gebe die URL des Servers ein: ", "yellow", end="")
+            cprint("\t\t[*] Bitte gebe die URL des Servers ein: ", "yellow", end="")
             self.server_addr = input()
 
-            cprint("[*] Bitte gebe den Server Port an: ", "yellow", end="")
+            cprint("\t\t[*] Bitte gebe den Server Port an: ", "yellow", end="")
             self.server_port = input()
 
 
@@ -76,6 +90,8 @@ class InputHandler:
         später weiterverwendet werden 
         :return: user_settings <dict> - ein dict von user opt.
         """
+        self.game_id = 0
+        self.run_locale = True 
         # erstellung des dicts
         # jedes attr bekommt einen eigenen key
 

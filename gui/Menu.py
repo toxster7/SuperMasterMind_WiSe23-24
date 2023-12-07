@@ -43,7 +43,7 @@ class Menu:
         # eingabe des benutzer in einem attr
         # speichern
         
-        self.auswahl = InputHandler.getUserSelection(self)
+        self.auswahl = InputHandler.getUserSelection( self )
 
         # sollte die eingabe des benutzers 2 sein
         # wird das spiel beendet
@@ -86,13 +86,27 @@ class Menu:
                 # wenn der benutzer '2' -> game übers netz
                 
                 if self.auswahl == "1":
-                    
+                
+                    # clearen des terminals
+                    # aufruf des menüs, der spieloptionen
+                    # eingaben der der spieloptionen
+                   
+                    OsChecker.clearTerminal() 
+                    MenuPrinter.displayGameOptionsLocal() 
                     InputHandler.setUserInput( self, True )
-
+                    print(InputHandler.getUserInput( self ))
+                
                 elif self.auswahl == "2":
                     
+                    # clearen des terminals
+                    # aufruf des menüs, der spieloptionen
+                    # eingaben der der spieloptionen
+
+                    OsChecker.clearTerminal()
+                    MenuPrinter.displayGameOptionsLocal() 
                     InputHandler.setUserInput( self, False )
-            
+                    print(InputHandler.getUserInput( self ))
+
             elif self.auswahl == "2":
 
 
