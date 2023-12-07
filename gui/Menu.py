@@ -68,6 +68,10 @@ class Menu:
             MenuPrinter.displayRoleType()
             self.auswahl = InputHandler.getUserSelection( self )
 
+            # prüfen welche option der nutzer gewählt hat
+            # wenn der benutzer '1' -> Codierer
+            # wenn der benutzer '2' -> Rater
+
             if self.auswahl == "1":
 
                 # clearen des terminals   
@@ -77,6 +81,18 @@ class Menu:
                 MenuPrinter.displayGameType() 
                 self.auswahl = InputHandler.getUserSelection( self )
 
+                # prüfen was der benutzer gewählt hat
+                # wenn der benutzer '1' -> locale game
+                # wenn der benutzer '2' -> game übers netz
+                
+                if self.auswahl == "1":
+                    
+                    InputHandler.setUserInput( self, True )
+
+                elif self.auswahl == "2":
+                    
+                    InputHandler.setUserInput( self, False )
+            
             elif self.auswahl == "2":
 
 
