@@ -76,3 +76,22 @@ class MenuPrinter:
             +------------------------------------+
         """
         )
+
+    def displayGameOptionsLocal() -> None:
+        """
+        diese funktion dient dazu, die möglichen spiel
+        optionen, die der user festlegen kann anzuzeigen
+        """
+
+        print(
+        """
+            +------------------------------------+
+            |   Du kannst gleich mit dem Spiel   |
+            |   starten. Du muss noch ein paar   |
+            |        Spieloptionen setzten       |
+            |                                    |
+            |                                    |
+            |                                    |
+            +UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU+
+        """
+        )
