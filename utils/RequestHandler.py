@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 class RequestHandler:
     """
 
@@ -12,10 +13,9 @@ class RequestHandler:
         """
 
         self.json_schema = ""
-        self.postURL = "https://localhost"
+        self.postURL = "http://localhost:8080"
 
-
-    def eingabePOSTZiel(self,ziel):
+    def eingabePOSTZiel(self, ziel):
         """
 
         :param ziel:
@@ -28,10 +28,10 @@ class RequestHandler:
 
         :return:
         """
-        with open("schema.json", "r") as json_data:
+        with open("schema.json", "r", encoding="UTF8") as json_data:
             self.json_schema = json.load(json_data)
         json_data.close()
-        print(self.json_schema)
+        #print(self.json_schema)
 
     def sendRequest(self, game_id, gamer_id, positions, colors, value):
         """
@@ -43,24 +43,23 @@ class RequestHandler:
         :param value:
         :return:
         """
-#
+        #
         self.json_schema["gameid"]["type"] = game_id
         self.json_schema["gamerid"]["type"] = gamer_id
         self.json_schema["positions"]["type"] = positions
         self.json_schema["colors"]["type"] = colors
         self.json_schema["value"]["type"] = value
 
-        print(self.json_schema)
-
-        #response = requests.post(self.postURL, self.json_schema)
-
-        response = requests.get("https://google.com")
-        print(response.text)
+        response = requests.post(self.postURL, json=self.json_schema,  headers={'Content-type': 'application/json; charset=utf-8'})
 
         if response.status_code == 200:
             print("Zug erfolgreich abgeschickt")
+            print("___________")
+            print(response.text)
+            print("___________")
+
         else:
-            print("Zug nicht erfolgreich abgeschickt. Status: " + response.status_code)
+            print("Zug nicht erfolgreich abgeschickt. Status: " + str(response.status_code))
 
     def getRequest(self):
         """
@@ -69,6 +68,7 @@ class RequestHandler:
         """
         print("Hallo")
 
-a=RequestHandler()
+
+a = RequestHandler()
 a.readFile()
-a.sendRequest()
+a.sendRequest(55,"Ilai",4,4,"Valie")
