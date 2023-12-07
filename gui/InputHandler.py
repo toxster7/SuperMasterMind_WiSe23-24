@@ -14,18 +14,6 @@ class InputHandler:
 
     def __init__( self ) -> None:
         
-        self.game_id       = 0
-        self.gamer_id      = ""
-        self.anzahl_farben = ""
-        self.anzahl_pos    = ""
-        self.server_addr   = ""
-        self.server_port   = ""
-        self.run_local     = True
-        self.auswahl       = ""
-
-    '''
-    def __attrs_post_init__( self ):
-        
         """
         konstruktor der klasse Menu
 
@@ -36,17 +24,16 @@ class InputHandler:
         # anzahl_pos - auswahl der positionen mit denen gespielt wird
         # server_addr - adresse des server, wenn über das net gespielt wird
         # server_port - der port über den der server kommuniziert
+        # run_local - lokales spiel oder übers netz
         """
-
-        self.gamer_id      = ""
         self.game_id       = 0
+        self.gamer_id      = ""
         self.anzahl_farben = ""
         self.anzahl_pos    = ""
         self.server_addr   = ""
         self.server_port   = ""
+        self.run_local     = True
         self.auswahl       = ""
-        #self.run_locale    = True
-    '''
 
     def getUserSelection( self ) -> str:
 
