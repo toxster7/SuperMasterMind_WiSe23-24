@@ -9,11 +9,21 @@ class InputHandler:
     anzahl_pos    : str
     server_addr   : str
     server_port   : str
-    run_locale    : bool 
+    run_local     : bool 
+    auswahl       : str
 
     def __init__( self ) -> None:
-        pass
+        
+        self.game_id       = 0
+        self.gamer_id      = ""
+        self.anzahl_farben = ""
+        self.anzahl_pos    = ""
+        self.server_addr   = ""
+        self.server_port   = ""
+        self.run_local     = True
+        self.auswahl       = ""
 
+    '''
     def __attrs_post_init__( self ):
         
         """
@@ -35,7 +45,8 @@ class InputHandler:
         self.server_addr   = ""
         self.server_port   = ""
         self.auswahl       = ""
-        self.run_locale    = True
+        #self.run_locale    = True
+    '''
 
     def getUserSelection( self ) -> str:
 
@@ -53,15 +64,16 @@ class InputHandler:
 
         return self.auswahl
 
-    def setUserInput( self, locale_game ) -> None:
+    def setUserInput( self, local_game ) -> None:
 
         """
         diese funktion nimmt die spieloptionen des nutzers
         entgegen und speichert diese in den klassen attr
         """
+
         cprint("\t\t[*] Gebe deine Username ein: ", "yellow", end="")
         self.gamer_id = input()
-
+        
         # TODO add checks for numbers!
         cprint("\t\t[*] Mit wie vielen Farben möchtest Du spielen [min 2 - max 8]: ", "yellow", end="")
         self.anzahl_farben = input()
@@ -71,9 +83,9 @@ class InputHandler:
         self.anzahl_pos = input()
 
         
-        if not locale_game:
+        if not local_game:
 
-            self.run_locale = locale_game
+            self.run_local = local_game
             
             cprint("\t\t[*] Bitte gebe die URL des Servers ein: ", "yellow", end="")
             self.server_addr = input()
@@ -90,8 +102,9 @@ class InputHandler:
         später weiterverwendet werden 
         :return: user_settings <dict> - ein dict von user opt.
         """
-        self.game_id = 0
-        self.run_locale = True 
+        # game_id ist beim ersten spiel 0
+        # diese id muss später erhöht werden
+        
         # erstellung des dicts
         # jedes attr bekommt einen eigenen key
 
@@ -107,7 +120,7 @@ class InputHandler:
         # wenn ja, müssen noch weitere opt. zum dict
         # hinzugefügt werden
 
-        if not self.run_locale:
+        if not self.run_local:
             
             # hinzufügen der url/server adr. und server port
 
@@ -115,3 +128,4 @@ class InputHandler:
             user_settings["Port"] = self.server_port
 
         return user_settings
+

@@ -40,10 +40,12 @@ class Menu:
 
         MenuPrinter.displayMenu()
 
+        # erstellen eines handler objk
         # eingabe des benutzer in einem attr
         # speichern
-        
-        self.auswahl = InputHandler.getUserSelection( self )
+
+        handler = InputHandler()
+        self.auswahl = handler.getUserSelection()
 
         # sollte die eingabe des benutzers 2 sein
         # wird das spiel beendet
@@ -69,53 +71,75 @@ class Menu:
             self.auswahl = InputHandler.getUserSelection( self )
 
             # prüfen welche option der nutzer gewählt hat
+            # bzw. als der benutzer spielen möchte
             # wenn der benutzer '1' -> Codierer
-            # wenn der benutzer '2' -> Rater
 
             if self.auswahl == "1":
 
                 # clearen des terminals   
                 # aufruf des menüs, das den gametype bestimmt
-                
+                # 
+                # danach wird von der handel klasse der input
+                # des benutzer eingelesen
+                # 
+                # nachdem wird geprüft, ob der benutzer lokal
+                # oder über das netzwerk spielen möchte
+                # mit dieser funktion wird auch gleichzeitig
+                # das menü angezeigt
+
                 OsChecker.clearTerminal() 
                 MenuPrinter.displayGameType() 
-                self.auswahl = InputHandler.getUserSelection( self )
+                self.auswahl = handler.getUserSelection() 
+                self.selectLocalOrNet( handler )
 
-                # prüfen was der benutzer gewählt hat
-                # wenn der benutzer '1' -> locale game
-                # wenn der benutzer '2' -> game übers netz
-                
-                if self.auswahl == "1":
-                
-                    # clearen des terminals
-                    # aufruf des menüs, der spieloptionen
-                    # eingaben der der spieloptionen
-                   
-                    OsChecker.clearTerminal() 
-                    MenuPrinter.displayGameOptionsLocal() 
-                    InputHandler.setUserInput( self, True )
-                    print(InputHandler.getUserInput( self ))
-                
-                elif self.auswahl == "2":
-                    
-                    # clearen des terminals
-                    # aufruf des menüs, der spieloptionen
-                    # eingaben der der spieloptionen
-
-                    OsChecker.clearTerminal()
-                    MenuPrinter.displayGameOptionsLocal() 
-                    InputHandler.setUserInput( self, False )
-                    print(InputHandler.getUserInput( self ))
+            # wenn der benutzer '2' -> Rater
 
             elif self.auswahl == "2":
 
-
                 # clearen des terminals   
                 # aufruf des menüs, das den gametype bestimmt
-                
+                #
+                # danach wird von der handel klasse der input
+                # des benutzer eingelesen
+                # 
+                # nachdem wird geprüft, ob der benutzer lokal
+                # oder über das netzwerk spielen möchte
+                # mit dieser funktion wird auch gleichzeitig
+                # das menü angezeigt
+
                 OsChecker.clearTerminal()
                 MenuPrinter.displayGameType()
-                self.auswahl = InputHandler.getUserSelection( self )
+                self.auswahl = handler.getUserSelection()
+                self.selectLocalOrNet( handler )
+
+
+    def selectLocalOrNet( self, handler ) -> None:
+
+        """
+        diese funktion dient dazu, etwas code
+        zu sparen, dont repeat. Sie zeigt das
+        menü für ein lokales oder über das netzwerk
+        spiel an. 
+        des weiteren dient sie dazu die spiel optionen
+        des benutzer anzunehmen
+        """
+        OsChecker.clearTerminal()
+        MenuPrinter.displayGameOptionsLocal()
+
+        if self.auswahl == "1":
+
+            handler.setUserInput( True )
+
+            # TODO remove this print later
+            print( handler.getUserInput() )
+
+        elif self.auswahl == "2":
+
+            handler.setUserInput( False )
+
+            # TODO remove this print later
+            print( handler.getUserInput())
+
 
 # nur für das testen hier,
 # wenn später aufgerufen,
