@@ -1,34 +1,45 @@
 import sys
 sys.path.append('../wise23-24_superhirn_25/')
 
+# own modules
+# TODO: fix import!!!!
+from InputHandler import *
+
+
 class Spielfeld:
 
-    def __init__(self) -> None:
-        self.versuch = 10
-        self.code = ""
-        self.versuche = []
+    trys_left : int
+    trys      : list
+    code      : []
 
-
-
-    def showSpielfeld(self):
+    def __init__( self ) -> None:
+        
+        self.trys_left  = 10
+        self.versuche   = []
+        self.code       = []
+    
+    def tmpColort( self, numbers_of_colors ):
         pass
 
-    def display_interface(self,data):
-        # Löscht den vorherigen Inhalt in der Konsole
-        print("\033[H\033[J")
-        print("Aktuelle Anzeige:")
-        for entry in data:
-            print(entry)
-        print("Aktualisierung alle 3 Sekunden...")
+    def showSpielfeld( self ) -> None:
+        
+        # erstellen des handler obj
+        # wird benötigt, um die spielopt.
+        # zubekommen
 
-    def main(self):
-        data = []
+        handler       = InputHandler()
+        game_settings = handler.getUserInput()
+        game_settings["anzahl_pos"] = 4 # tmp 
+        
+        # setzten der default len des codes
+        # der spieler darf die länge des codes
+        # nicht überschreiten
 
-        while self.versuch >= 0:
-            self.display_interface(data)
-            user_input = input("Gib hier deinen Code ein: ")
-            if user_input:
-                data.append(user_input)
-                self.versuch -= 1
+        self.code = [ "" for pos in range( game_settings.get( "anzahl_pos" ) ) ]
 
-        data.append("ENDE")
+a = Spielfeld()
+a.showSpielfeld()
+
+
+    
+
