@@ -46,10 +46,17 @@ class InputHandler:
         validater   = GuiValidater()
         check_input = True
 
-        # man hätte es auch in one line schreiben können,
-        # aber mit dem cprint sieht es einfach cooler aus :)
+        # der schleife läuft so lange bis der benutzer
+        # die richtige eingabe gemacht hat, die von ihm
+        # verlangt wird
+        #
+        # die func validateMenu sorgt dafür, das diese while-loop
+        # beendet wird
+
         while check_input:
-            
+     
+            # man hätte es auch in one line schreiben können,
+            # aber mit dem cprint sieht es einfach cooler aus :)           
             cprint( "\t\t[*] Optionen: ", "yellow", end="" )
             self.auswahl = input()
             check_input  = validater.validateMenu( self.auswahl )
@@ -75,6 +82,12 @@ class InputHandler:
             
         cprint("\t\t[*] Gebe deine Username ein: ", "yellow", end="")
         self.gamer_id = input()
+        
+        # die loop läuft so lange, bis der user die eingaben
+        # richtig eingegeben hat
+        # dabei wird geguckt, ob er die richtige range und zahlen
+        # eingibt. bei der nächsten while-loop ist das gleich
+        # es gibt bestimmt einen besseren weg ... :(
 
         while check_input_1:
         
@@ -107,9 +120,7 @@ class InputHandler:
         später weiterverwendet werden 
         :return: user_settings <dict> - ein dict von user opt.
         """
-        # game_id ist beim ersten spiel 0
-        # diese id muss später erhöht werden
-        
+
         # erstellung des dicts
         # jedes attr bekommt einen eigenen key
 
