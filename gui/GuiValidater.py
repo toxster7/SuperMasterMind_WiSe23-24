@@ -1,4 +1,5 @@
 from termcolor import cprint
+from InputHandler import *
 
 class GuiValidater:
 
@@ -47,7 +48,34 @@ class GuiValidater:
                 cprint("\t\t[-] Das war keine Zahl...", "red")
                 return True
 
+
+    def validateMenu( self, input_to_validate ) -> bool:
+        
+        """
+        diese funktion dient dazu den input des nutzers zu
+        validieren. sprich, ob der nutzer auch die angeforderten
+        datentypen und ob die auswahl in der range liegt
+        :return: True/False 
+        """
+        try:
+            # die folgende überprüfung muss in ein try/except block,
+            # da auch benutzer auch chars bzw. strs eigeben kann,
+            # das verfehlt den datentype
    
+            if int( input_to_validate ) in range( 1, 3):
+                
+                return False
+            
+            else:
+
+                cprint("\t\t[-] Bitte gebe eine Zahl ein, die in der Range liegt", "red")
+                return True
+
+        except ValueError:
+            
+            cprint("\t\t[-] Das war keine Zahl...", "red")
+            return True
+
     def validateUrl( self, input_to_validate ) -> bool:
 
         pass

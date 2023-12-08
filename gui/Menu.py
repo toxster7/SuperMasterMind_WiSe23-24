@@ -3,9 +3,11 @@ import sys
 import os
 sys.path.append('../wise23-24_superhirn_25/')
 # own modules
+# TODO: anpassen der imports
 from MenuPrinter import * 
 from OsChecker import *
 from InputHandler import *
+from GuiValidater import *
 
 class Menu:
     """
@@ -44,7 +46,7 @@ class Menu:
         # eingabe des benutzer in einem attr
         # speichern
 
-        handler = InputHandler()
+        handler   = InputHandler()
         self.auswahl = handler.getUserSelection()
 
         # sollte die eingabe des benutzers 2 sein
@@ -56,7 +58,7 @@ class Menu:
         if self.auswahl == "2":
 
             # das spiel wird einfach beendet    
-            crint( "[+] Aufwieder sehen :)", "green" )
+            cprint( "\t\t[+] Aufwieder sehen :)", "green" )
             sys.exit( 0 )
 
         elif self.auswahl == "1":
@@ -68,7 +70,7 @@ class Menu:
             
             OsChecker.clearTerminal()
             MenuPrinter.displayRoleType()
-            self.auswahl = InputHandler.getUserSelection( self )
+            self.auswahl = handler.getUserSelection()
 
             # prüfen welche option der nutzer gewählt hat
             # bzw. als der benutzer spielen möchte

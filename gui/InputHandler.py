@@ -43,12 +43,16 @@ class InputHandler:
         die auswahl des benutzer entgegenzunehmen
         :return self.auswahl <str> - gibt die auswahl als str zurück
         """
+        validater   = GuiValidater()
+        check_input = True
 
         # man hätte es auch in one line schreiben können,
         # aber mit dem cprint sieht es einfach cooler aus :)
-
-        cprint( "\t\t\t[*] Optionen: ", "yellow", end="" )
-        self.auswahl = input()
+        while check_input:
+            
+            cprint( "\t\t[*] Optionen: ", "yellow", end="" )
+            self.auswahl = input()
+            check_input  = validater.validateMenu( self.auswahl )
 
         return self.auswahl
 
