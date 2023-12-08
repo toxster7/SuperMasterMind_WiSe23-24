@@ -11,8 +11,7 @@ class Spielfeld:
 
 
     def showSpielfeld(self):
-        output = ""
-
+        pass
 
     def display_interface(self,data):
         # Löscht den vorherigen Inhalt in der Konsole

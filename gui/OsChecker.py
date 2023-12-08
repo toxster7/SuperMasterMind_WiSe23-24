@@ -22,13 +22,12 @@ class OsChecker:
         # ist von os zu os unterschiedlich
         #
         # TODO: checken wie output von mac ist
-        # TODO: checken wie output von win ist
         
         if sys.platform == "linux" or sys.platform == "darwin":
             
             os.system("clear")
 
-        elif sys.platform == "windows":
+        elif sys.platform == "win32" or sys.platform == "win64":
             
             os.system("cls")
 
