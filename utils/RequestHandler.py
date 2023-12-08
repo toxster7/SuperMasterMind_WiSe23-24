@@ -64,9 +64,14 @@ class RequestHandler:
 
         if response.status_code == 200:
             print("Zug erfolgreich abgeschickt")
-            #print("___________")
-            #print(response.json)
-            #print("___________")
+            """
+            print("___________")
+            print(response.json)
+            print("___________")
+            print("___________")
+            print(response.text)
+            print("___________")
+            """
             self.getResponse(response)
 
 
@@ -93,6 +98,6 @@ class RequestHandler:
         return moveDict
 
 
-#a = RequestHandler()
-#a.readFile()
-#a.sendRequest(55, "Ilai", 4, 4, "Valie")
+a = RequestHandler()
+a.readFile()
+a.sendRequest(55, "Ilai", 4, 4, "Valie")

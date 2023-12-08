@@ -14,14 +14,14 @@ class CodeColors:
         
         self.colors = {}
         
-        self.colors[1]   = "black"
-        self.colors[2]     = "red"
-        self.colors[3]   = "green"
-        self.colors[4]  = "yellow"
-        self.colors[5]    = "blue"
-        self.colors[6] = "magenta"
-        self.colors[7]    = "cyan"
-        self.colors[8]   = "white"
+        self.colors[1]   = "red"
+        self.colors[2]     = "green"
+        self.colors[3]   = "yellow"
+        self.colors[4]  = "blue"
+        self.colors[5]    = "orange"
+        self.colors[6] = "brown"
+        self.colors[7]    = "white"
+        self.colors[8]   = "black"
 
 
     def getColor(self, key) -> str:
