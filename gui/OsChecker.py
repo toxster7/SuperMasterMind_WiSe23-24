@@ -30,4 +30,3 @@ class OsChecker:
         elif sys.platform == "win32" or sys.platform == "win64":
             
             os.system("cls")
-

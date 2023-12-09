@@ -2,10 +2,6 @@ import sys
 
 sys.path.append('../wise23-24_superhirn_25/')
 
-from enum import Enum
-from termcolor import colored, cprint
-
-
 class CodeColors:
 
     # folgende attribute speichern die möglichen
@@ -24,5 +20,24 @@ class CodeColors:
         self.colors[8] = "black"
 
     def getColor(self, key) -> str:
+        """
+        diese funktion dient dazu den key
+        des sets zubekommen, wo die farbe
+        gespeichert ist, die gebraucht wird
+        :return: str der farbe
+        """
         return self.colors.get(key)
 
+    def getGameColors(self, nr_of_colors) -> list:
+        """
+        diese funktion erstellt eine liste von farben
+        :parm: nr_of_colors - ist die anzahl der farben
+        :return: eine list von farben als str
+        """
+        list_of_colors = []
+
+        for term_str in range( 1, nr_of_colors + 1):
+
+            list_of_colors.append( self.getColor( nr_of_colors ) )
+
+        return list_of_colors
