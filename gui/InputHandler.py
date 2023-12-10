@@ -10,7 +10,8 @@ class InputHandler:
     anzahl_pos    : str
     server_addr   : str
     server_port   : str
-    run_local     : bool 
+    run_local     : bool
+    code_to_guess : list
     auswahl       : str
 
     def __init__( self ) -> None:
@@ -30,10 +31,11 @@ class InputHandler:
         self.game_id       = 0
         self.gamer_id      = ""
         self.anzahl_farben = ""
-        self.anzahl_pos    = ""
+        self.anzahl_pos    = "5" # <- nur testweise, muss wieder entfernt werden!
         self.server_addr   = ""
         self.server_port   = ""
         self.run_local     = True
+        self.code_to_guess = []
         self.auswahl       = ""
 
     def getUserSelection( self ) -> str:
@@ -41,7 +43,7 @@ class InputHandler:
         """
         diese funktion dient dazu, den intput bzw.
         die auswahl des benutzer entgegenzunehmen
-        :return self.auswahl <str> - gibt die auswahl als str zurück
+        :return: self.auswahl <str> - gibt die auswahl als str zurück
         """
         validater   = GuiValidater()
         check_input = True
@@ -62,6 +64,53 @@ class InputHandler:
             check_input  = validater.validateMenu( self.auswahl )
 
         return self.auswahl
+
+    def getCodeInput( self ):
+
+        """
+        diese funktion dient dazu den code für das spiel
+        entgegenzunehmen. sie speichert diesen in dem
+        attr 'code_to_guess'
+        """
+
+        # erstellen eines validater obj,
+        # da der input des user validiert werden muss,
+        # ob der code im richtigem format ist
+
+        validater   = GuiValidater()
+        check_input = True
+        cprint("\t\t[!] Der Code sollte folgendes Format habe, als Beispiel: 1.2.3.4 ", "orange")
+
+        # solange der benutzer nicht die richtige eingabe
+        # gemacht hat, wird diese wiederholt
+
+        while check_input:
+
+            # eingabe des users einlesen, und diesen an einem
+            # '.' splitten. jede ziffer des codes hat dann einen
+            # platz, in der liste
+
+            cprint("\t\t[*] Gebe den Code ein: ", "yellow", end="")
+            self.code_to_guess = input().split(".")
+            check_input        = validater.validateCode( self.code_to_guess, self.anzahl_pos )
+
+            # wenn das immer noch wahr ist, nach der
+            # validierung, wird die liste geleert
+            if check_input:
+
+              self.code_to_guess = []
+
+    def getCode(self) -> list:
+        """
+        diese funktion gibt eine liste mit
+        dem code zurück, den der spieler gesetzt hat
+        :return: code_to_guess - liste mit dem code
+        """
+        return self.code_to_guess
+
+    def getGuess(self):
+
+        pass
 
     def setUserInput( self, local_game ) -> None:
 
@@ -110,7 +159,6 @@ class InputHandler:
 
             cprint("\t\t[*] Bitte gebe den Server Port an: ", "yellow", end="")
             self.server_port = input()
-
 
     def getUserInput( self ) -> dict:
         

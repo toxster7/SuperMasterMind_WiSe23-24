@@ -19,7 +19,8 @@ class Spielfeld:
         self.code           = []
         self.list_of_colors = []
 
-    def showSpielfeld( self ) -> None:
+
+    def showGamefield( self ) -> None:
 
         # erstellen des handler obj
         # wird benötigt, um die spielopt.
@@ -44,11 +45,21 @@ class Spielfeld:
         term_colors = CodeColors()
         self.list_of_colors = term_colors.getGameColors( game_settings["anzahl_farben"] )
 
+        handler.getCodeInput()
+        print( handler.getCode() )
+        # formatieren des spielfeldes,
+        # nachdem die farben und der code festgelegt wurde
+        #self.formatPlayfield( self.list_of_colors, self.code )
+
+    def formatPlayfield( self, guess_colors, code ):
+
+        pass
+
 
 
 
 a = Spielfeld()
-a.showSpielfeld()
+a.showGamefield()
 
 
 
