@@ -13,6 +13,7 @@ class InputHandler:
     server_port   : str
     run_local     : bool
     code_to_guess : list
+    guess         : list
     auswahl       : str
 
     def __init__( self ) -> None:
@@ -32,11 +33,12 @@ class InputHandler:
         self.game_id       = 0
         self.gamer_id      = ""
         self.anzahl_farben = ""
-        self.anzahl_pos    = "5" # <- nur testweise, muss wieder entfernt werden!
+        self.anzahl_pos    = "5" # <- nur für test, muss entfertn werden
         self.server_addr   = ""
         self.server_port   = ""
         self.run_local     = True
         self.code_to_guess = []
+        self.guess         = []
         self.auswahl       = ""
 
     def getUserSelection( self ) -> str:
@@ -87,10 +89,11 @@ class InputHandler:
 
         while check_input:
 
-            # eingabe des users einlesen, und diesen an einem
-            # '.' splitten. jede ziffer des codes hat dann einen
-            # platz, in der liste
             try:
+                # eingabe des users einlesen, und diesen an einem
+                # '.' splitten. jede ziffer des codes hat dann einen
+                # platz, in der liste
+
                 cprint("\t\t[*] Gebe den Code ein: ", "yellow", end="")
                 self.code_to_guess = input().split(".")
                 check_input        = validater.validateCode( self.code_to_guess, self.anzahl_pos )
@@ -115,10 +118,29 @@ class InputHandler:
         """
         return self.code_to_guess
 
-    def getGuess(self):
+    def getGuess(self) -> list:
 
-        pass
+        validater   = GuiValidater()
+        check_input = True
 
+        while check_input:
+
+            try:
+                cprint("\t\t[*] Gebe deinen Guess ein: ", "yellow", end="")
+                self.guess = input().split(".")
+                check_input = validater.validateCode( self.guess, self.anzahl_pos )
+
+                if check_input:
+
+                    self.guess = []
+
+            except KeyboardInterrupt:
+                print()
+                cprint("\t\t[-] Immer diese Interrupts :(", "red")
+                cprint("\t\t[+] Exiting...", "green")
+                sys.exit(0)
+
+        return self.guess
     def setUserInput( self, local_game ) -> None:
 
         """

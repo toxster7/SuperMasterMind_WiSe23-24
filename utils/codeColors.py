@@ -1,5 +1,5 @@
 import sys
-
+from termcolor import colored
 sys.path.append('../wise23-24_superhirn_25/')
 
 class CodeColors:
@@ -28,16 +28,12 @@ class CodeColors:
         """
         return self.colors.get(key)
 
-    def getGameColors(self, nr_of_colors) -> list:
-        """
-        diese funktion erstellt eine liste von farben
-        :parm: nr_of_colors - ist die anzahl der farben
-        :return: eine list von farben als str
-        """
-        list_of_colors = []
+    def coloredFormatStr( self, code_to_guess ) -> list:
 
-        for term_str in range( 1, nr_of_colors + 1):
+        for buff, nr in enumerate( code_to_guess ):
 
-            list_of_colors.append( self.getColor( term_str ) )
+            code_to_guess[ buff ] = colored( nr, self.getColor( nr ) )
 
-        return list_of_colors
+        return code_to_guess
+
+

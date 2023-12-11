@@ -118,7 +118,7 @@ class GuiValidater:
                 return False
 
             else:
-                cprint("\t\t[-] Falsches Format...", "red")
+                cprint("\t\t[-] Falsches Format... z. B. 1.2.3.4.5", "red")
                 return True
 
         except ValueError:
