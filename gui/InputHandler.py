@@ -33,7 +33,7 @@ class InputHandler:
         self.game_id       = 0
         self.gamer_id      = ""
         self.anzahl_farben = ""
-        self.anzahl_pos    = "5" # <- nur für test, muss entfertn werden
+        self.anzahl_pos    = ""
         self.server_addr   = ""
         self.server_port   = ""
         self.run_local     = True
@@ -141,6 +141,7 @@ class InputHandler:
                 sys.exit(0)
 
         return self.guess
+
     def setUserInput( self, local_game ) -> None:
 
         """
@@ -221,6 +222,3 @@ class InputHandler:
             user_settings["port"] = self.server_port
 
         return user_settings
-
-
-

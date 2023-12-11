@@ -21,15 +21,14 @@ class Spielfeld:
         self.list_of_colors = []
 
 
-    def showGamefield( self ) -> None:
+    def showGamefield( self, handler ) -> None:
 
         # erstellen des handler obj
         # wird benötigt, um die spielopt.
         # zubekommen
 
-        handler       = InputHandler()
         game_settings = handler.getUserInput()
-        game_settings["anzahl_farben"] = 4 # tmp
+        print(game_settings)
 
         # erstellen des colors obj bzw. aufruf der enum.
         # erstellen eines handlers für den code input
@@ -38,27 +37,31 @@ class Spielfeld:
         # zahl eine eigene farbe und diese wird dann im code
         # gespeichert
 
-        #term_colors = CodeColors()
-        #handler.getCodeInput()
-        #self.code = handler.getCode()
-        #self.code = term_colors.coloredFormatStr( self.code )
+        term_colors = CodeColors()
+        handler.getCodeInput()
+        self.code = handler.getCode()
+        self.code = term_colors.coloredFormatStr( self.code )
 
+        OsChecker.clearTerminal()
+        print("\t\t[*] Das Spiel beginnt. Dein Gegner hat einen Code gesetzt")
+        print("\t\t[*] Du hast 10 versuche diesen Code zu erraten")
+        print("\t\t[DEBUG] {}".format( self.code ))
 
         # formatieren des spielfeldes,
         # nachdem die farben und der code festgelegt wurde
-        self.formatPlayfield( game_settings["anzahl_pos"], handler )
+        self.formatPlayfield( game_settings["anzahl_pos"], handler, term_colors )
 
-    def formatPlayfield( self, anzahl_pos, handler ):
+    def formatPlayfield( self, anzahl_pos, handler, term_colors ):
 
-        term_colors    = CodeColors()
         format_print_5 = "\t\t| \t{nr_1}\t\t{nr_2}\t\t{nr_3}\t\t{nr_4}\t   {nr_5} |"
         format_print_4 = "\t\t| \t\t{nr_1}\t\t{nr_2}\t\t{nr_3}\t\t{nr_4}\t |"
-        play_grid = ["\t\t+------------------------------------+"]
-        guess_counter = 2
+        play_grid      = ["\t\t+------------------------------------+"]
 
         guess = term_colors.coloredFormatStr( handler.getGuess() )
+        self.trys += 1
+        OsChecker.clearTerminal()
 
-        while self.trys < (self.trys_left - 1):
+        while self.trys <= self.trys_left :
 
             if anzahl_pos == "5":
 
@@ -80,10 +83,9 @@ class Spielfeld:
 
                 print(field)
 
-            print()
-            print("[+] Guess: {}".format( self.trys ))
-            guess = term_colors.coloredFormatStr(handler.getGuess())
-            self.trys += 1
+            if self.trys < 10:
+                print()
+                print("\t\t[+] Guess: {}".format( self.trys ))
+                guess = term_colors.coloredFormatStr(handler.getGuess())
 
-a = Spielfeld()
-a.showGamefield()
+            self.trys += 1

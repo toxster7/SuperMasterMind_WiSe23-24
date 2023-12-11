@@ -8,6 +8,7 @@ from MenuPrinter import *
 from OsChecker import *
 from InputHandler import *
 from GuiValidater import *
+from Spielfeld import *
 
 class Menu:
     """
@@ -27,7 +28,9 @@ class Menu:
         # init der klassen attr.
         # auswahl - ist die menü auswahl
         """
-        self.auswahl = ""
+        self.auswahl   = ""
+        self.game_grid = Spielfeld()
+        self.handler   = InputHandler()
 
     def runMenus( self ):
 
@@ -45,9 +48,7 @@ class Menu:
         # erstellen eines handler objk
         # eingabe des benutzer in einem attr
         # speichern
-
-        handler   = InputHandler()
-        self.auswahl = handler.getUserSelection()
+        self.auswahl = self.handler.getUserSelection()
 
         # sollte die eingabe des benutzers 2 sein
         # wird das spiel beendet
@@ -70,7 +71,7 @@ class Menu:
             
             OsChecker.clearTerminal()
             MenuPrinter.displayRoleType()
-            self.auswahl = handler.getUserSelection()
+            self.auswahl = self.handler.getUserSelection()
 
             # prüfen welche option der nutzer gewählt hat
             # bzw. als der benutzer spielen möchte
@@ -91,8 +92,8 @@ class Menu:
 
                 OsChecker.clearTerminal() 
                 MenuPrinter.displayGameType() 
-                self.auswahl = handler.getUserSelection() 
-                self.selectLocalOrNet( handler )
+                self.auswahl = self.handler.getUserSelection()
+                self.selectLocalOrNet()
 
             # wenn der benutzer '2' -> Rater
 
@@ -111,11 +112,10 @@ class Menu:
 
                 OsChecker.clearTerminal()
                 MenuPrinter.displayGameType()
-                self.auswahl = handler.getUserSelection()
-                self.selectLocalOrNet( handler )
+                self.auswahl = self.handler.getUserSelection()
+                self.selectLocalOrNet()
 
-
-    def selectLocalOrNet( self, handler ) -> None:
+    def selectLocalOrNet( self ) -> None:
 
         """
         diese funktion dient dazu, etwas code
@@ -130,18 +130,13 @@ class Menu:
 
         if self.auswahl == "1":
 
-            handler.setUserInput( True )
-
-            # TODO remove this print later
-            print( handler.getUserInput() )
+            self.handler.setUserInput( True )
+            self.game_grid.showGamefield( self.handler )
 
         elif self.auswahl == "2":
 
-            handler.setUserInput( False )
-
-            # TODO remove this print later
-            print( handler.getUserInput())
-
+            self.handler.setUserInput( False )
+            self.game_grid.showGamefield( self.handler )
 
 # nur für das testen hier,
 # wenn später aufgerufen,
