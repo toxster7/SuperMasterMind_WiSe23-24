@@ -4,7 +4,7 @@ sys.path.append('../wise23-24_superhirn_25/')
 
 class Menu:
 
-    def __init__(self) -> None:
+    def __init__(self, game) -> None:
 
         """
         konstruktor der klasse Menu
@@ -15,7 +15,7 @@ class Menu:
         # anzahl_farben - auswahl der farben mit denen gespielt wird
         # anzahl_pos - auswahl der positionen mit denen gespielt wird
         """
-
+        self.game = game
         self.gamer_id      = ""
         self.game_id       = 0
         self.anzahl_farben = 0

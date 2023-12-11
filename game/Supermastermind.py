@@ -14,8 +14,8 @@ class Supermastermind:
         self.runden = []
         self.rater = None
         self.coder = None
-        self.spielfeld = Spielfeld()
-        self.menu = Menu()
+        self.spielfeld = Spielfeld(self)
+        self.menu = Menu(self)
         self.laeuft = False
         self.gameLoop()
 
@@ -27,10 +27,7 @@ class Supermastermind:
 
     def gameLoop(self) -> None:
         while (True):
-            self.menu.displayMenu()
-            user_input = input("Start Game: (y/n)")
-            self.laeuft = True
-            
+            self.menu.runMenu()
             while self.laeuft:
                 self.spielfeld.display_interface("TEst")
                 user_input = input("End Game: (y/n)")

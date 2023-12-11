@@ -3,7 +3,8 @@ sys.path.append('../wise23-24_superhirn_25/')
 
 class Spielfeld:
 
-    def __init__(self) -> None:
+    def __init__(self, game) -> None:
+        self.game = game
         self.versuch = 10
         self.code = ""
         self.versuche = []
