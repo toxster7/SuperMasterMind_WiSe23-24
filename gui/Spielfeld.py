@@ -32,19 +32,14 @@ class Spielfeld:
         game_settings["anzahl_farben"] = 4 # tmp
         print(game_settings)
 
-        # setzten der default len des codes
-        # der spieler darf die länge des codes
-        # nicht überschreiten
-
-        self.code = [ "" for pos in range( game_settings.get( "anzahl_pos" ) ) ]
-
         # erstellen des colors obj bzw. aufruf der enum,
         # getGameColors gibt uns die list der farben
         # die in diesem spiel verwendet werden
 
         term_colors = CodeColors()
         self.list_of_colors = term_colors.getGameColors( game_settings["anzahl_farben"] )
-
+        print( self.list_of_colors )
+        
         handler.getCodeInput()
         print( handler.getCode() )
         # formatieren des spielfeldes,

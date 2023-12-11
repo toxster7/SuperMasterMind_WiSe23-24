@@ -1,4 +1,5 @@
 from termcolor import cprint
+import sys
 from GuiValidater import *
 
 class InputHandler:
@@ -89,16 +90,22 @@ class InputHandler:
             # eingabe des users einlesen, und diesen an einem
             # '.' splitten. jede ziffer des codes hat dann einen
             # platz, in der liste
+            try:
+                cprint("\t\t[*] Gebe den Code ein: ", "yellow", end="")
+                self.code_to_guess = input().split(".")
+                check_input        = validater.validateCode( self.code_to_guess, self.anzahl_pos )
 
-            cprint("\t\t[*] Gebe den Code ein: ", "yellow", end="")
-            self.code_to_guess = input().split(".")
-            check_input        = validater.validateCode( self.code_to_guess, self.anzahl_pos )
+                # wenn das immer noch wahr ist, nach der
+                # validierung, wird die liste geleert
+                if check_input:
 
-            # wenn das immer noch wahr ist, nach der
-            # validierung, wird die liste geleert
-            if check_input:
+                    self.code_to_guess = []
 
-              self.code_to_guess = []
+            except KeyboardInterrupt:
+                print()
+                cprint("\t\t[-] Immer diese Interrupts :(", "red")
+                cprint("\t\t[+] Exiting...", "green")
+                sys.exit(0)
 
     def getCode(self) -> list:
         """
