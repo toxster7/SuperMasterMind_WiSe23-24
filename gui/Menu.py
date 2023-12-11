@@ -31,6 +31,7 @@ class Menu:
         self.auswahl   = ""
         self.game_grid = Spielfeld()
         self.handler   = InputHandler()
+        self.guesser   = True
 
     def runMenus( self ):
 
@@ -78,7 +79,7 @@ class Menu:
             # wenn der benutzer '1' -> Codierer
 
             if self.auswahl == "1":
-
+                
                 # clearen des terminals   
                 # aufruf des menüs, das den gametype bestimmt
                 # 
@@ -92,6 +93,7 @@ class Menu:
 
                 OsChecker.clearTerminal() 
                 MenuPrinter.displayGameType() 
+                self.guesser = False
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
 
@@ -131,12 +133,12 @@ class Menu:
         if self.auswahl == "1":
 
             self.handler.setUserInput( True )
-            self.game_grid.showGamefield( self.handler )
+            self.game_grid.showGamefield( self.handler, self.guesser )
 
         elif self.auswahl == "2":
 
             self.handler.setUserInput( False )
-            self.game_grid.showGamefield( self.handler )
+            self.game_grid.showGamefield( self.handler, self.guesser )
 
 # nur für das testen hier,
 # wenn später aufgerufen,

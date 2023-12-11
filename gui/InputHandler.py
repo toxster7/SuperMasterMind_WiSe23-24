@@ -82,7 +82,7 @@ class InputHandler:
 
         validater   = GuiValidater()
         check_input = True
-        cprint("\t\t[!] Der Code sollte folgendes Format habe, als Beispiel: 1.2.3.4 ", "orange")
+        cprint("\t\t[!] Der Code sollte folgendes Format habe, als Beispiel: 1.2.3.4 ", "magenta")
 
         # solange der benutzer nicht die richtige eingabe
         # gemacht hat, wird diese wiederholt
