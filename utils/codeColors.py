@@ -38,6 +38,6 @@ class CodeColors:
 
         for term_str in range( 1, nr_of_colors + 1):
 
-            list_of_colors.append( self.getColor( nr_of_colors ) )
+            list_of_colors.append( self.getColor( term_str ) )
 
         return list_of_colors

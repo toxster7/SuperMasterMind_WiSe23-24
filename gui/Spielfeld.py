@@ -39,9 +39,9 @@ class Spielfeld:
         term_colors = CodeColors()
         self.list_of_colors = term_colors.getGameColors( game_settings["anzahl_farben"] )
         print( self.list_of_colors )
-        
-        handler.getCodeInput()
-        print( handler.getCode() )
+
+        #handler.getCodeInput()
+        #print( handler.getCode() )
         # formatieren des spielfeldes,
         # nachdem die farben und der code festgelegt wurde
         #self.formatPlayfield( self.list_of_colors, self.code )
