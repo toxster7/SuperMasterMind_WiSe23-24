@@ -1,8 +1,6 @@
 import sys
 sys.path.append('../wise23-24_superhirn_25/')
 
-from utils.CodeColors import CodeColors
-
 class Runde:
 
     def __init__(self,code ,feedback) -> None:

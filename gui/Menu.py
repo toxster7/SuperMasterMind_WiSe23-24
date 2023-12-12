@@ -1,14 +1,16 @@
 from termcolor import cprint, colored
 import sys
-import os
 sys.path.append('../wise23-24_superhirn_25/')
 # own modules
 # TODO: anpassen der imports
-from MenuPrinter import * 
-from OsChecker import *
-from InputHandler import *
-from GuiValidater import *
-from Spielfeld import *
+from gui.MenuPrinter import MenuPrinter 
+from gui.OsChecker import OsChecker
+from gui.InputHandler import InputHandler
+from gui.Spielfeld import Spielfeld
+
+
+
+
 
 class Menu:
     """
@@ -32,6 +34,7 @@ class Menu:
         self.game_grid = Spielfeld()
         self.handler   = InputHandler()
         self.guesser   = True
+        
 
     def runMenus( self ):
 
@@ -96,7 +99,7 @@ class Menu:
                 self.guesser = False
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
-
+                
             # wenn der benutzer '2' -> Rater
 
             elif self.auswahl == "2":
@@ -116,7 +119,9 @@ class Menu:
                 MenuPrinter.displayGameType()
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
-
+                self.settings.guesser = True
+                return self.handler
+                
     def selectLocalOrNet( self ) -> None:
 
         """
@@ -133,12 +138,13 @@ class Menu:
         if self.auswahl == "1":
 
             self.handler.setUserInput( True )
-            self.game_grid.showGamefield( self.handler, self.guesser )
+            #self.game_grid.showGamefield( self.handler, self.guesser )
 
         elif self.auswahl == "2":
 
             self.handler.setUserInput( False )
-            self.game_grid.showGamefield( self.handler, self.guesser )
+            #self.game_grid.showGamefield( self.handler, self.guesser )
+            
 
 # nur für das testen hier,
 # wenn später aufgerufen,

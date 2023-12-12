@@ -1,11 +1,11 @@
 import sys
 import random
-#sys.path.append('../wise23-24_superhirn_25/')
+sys.path.append('../wise23-24_superhirn_25/')
 # own modules
 # TODO: fix import!!!!
-from InputHandler import *
-from codeColors import *
-from OsChecker import *
+from gui.InputHandler import *
+from gui.codeColors import *
+from gui.OsChecker import *
 
 class Spielfeld:
 
@@ -14,7 +14,7 @@ class Spielfeld:
     code           : list
     list_of_colors : list
 
-    def __init__( self ) -> None:
+    def __init__(self) -> None:
 
         self.trys_left      = 10
         self.trys           = 0

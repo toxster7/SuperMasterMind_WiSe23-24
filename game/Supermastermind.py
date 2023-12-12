@@ -7,6 +7,16 @@ sys.path.append('../wise23-24_superhirn_25/')
 from gui.Menu import Menu
 from gui.Spielfeld import Spielfeld
 
+
+"""
+    diese klasse dient dazu die unterschiedliche menüs anzuzeigen,
+    welche der user durchlafen muss.
+    des weiteren, nimmt diese klasse eingaben des nutzer entgegen,
+    die für das spiel notwendig sind
+    
+    @authro: Anton, Florian 
+"""
+
 class Supermastermind:
 
     def __init__(self) -> None:
@@ -14,10 +24,11 @@ class Supermastermind:
         self.runden = []
         self.rater = None
         self.coder = None
-        self.spielfeld = Spielfeld(self)
-        self.menu = Menu(self)
+        self.spielfeld = Spielfeld()
+        self.menu = Menu()
         self.laeuft = False
         self.gameLoop()
+        self.settings = None
 
     def resetGame(self) -> None:
         self.runden = []
@@ -27,11 +38,12 @@ class Supermastermind:
 
     def gameLoop(self) -> None:
         while (True):
-            self.menu.runMenu()
+            self.settings = self.menu.handler.getUserInput()
+            self.laeuft = True
             while self.laeuft:
-                self.spielfeld.display_interface("TEst")
-                user_input = input("End Game: (y/n)")
-                return
+                print(f"Läuft mit Setting: {self.settings["anzahl_farben"]}, {self.settings["anzahl_pos"]}")
+               
+            return
 
 
 
