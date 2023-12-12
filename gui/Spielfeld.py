@@ -3,9 +3,9 @@ import random
 #sys.path.append('../wise23-24_superhirn_25/')
 # own modules
 # TODO: fix import!!!!
-from InputHandler import *
-from codeColors import *
-from OsChecker import *
+from utilsMind.InputHandler import *
+from utilsMind.codeColors import *
+from utilsMind.OsChecker import *
 
 class Spielfeld:
 

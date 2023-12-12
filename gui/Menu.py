@@ -1,13 +1,13 @@
 from termcolor import cprint, colored
 import sys
 import os
-sys.path.append('../wise23-24_superhirn_25/')
+sys.path.append('/wise23-24_superhirn_25/')
 # own modules
 # TODO: anpassen der imports
 from MenuPrinter import * 
-from OsChecker import *
-from InputHandler import *
-from GuiValidater import *
+from utilsMind.OsChecker import *
+from utilsMind.InputHandler import *
+from utilsMind.GuiValidater import *
 from Spielfeld import *
 
 class Menu:
