@@ -71,6 +71,7 @@ class PostTest:
         self.schema += "" + "'positions':" + "{'type':" + "{id}".format(id=positions) + "},"
         self.schema += "" + "'colors':" + "{'type':" + "{id}".format(id=colors) + "},"
         self.schema += "" + "'value':" + "{'type':'" + "{id}".format(id=value) + "'}}"
+        print(self.schema)
 
         response = requests.post(self.postURL + ":" + self.postPort, json=self.schema,
                                  headers={'Content-type': 'application/json; charset=utf-8'})
@@ -83,11 +84,34 @@ class PostTest:
                     + response.text +
                     '\n')
 
+    def sendRequestLowSchema(self, gameid, gamerid, positions, colors, value):
+        # self.readfile()
+        self.schema += "{" + "'gameid':" + str(gameid) + ","
+        self.schema += "" + "'gamerid':'" + gamerid + "',"
+        self.schema += "" + "'positions':" + str(positions) + ","
+        self.schema += "" + "'colors':" + str(colors) + ","
+        self.schema += "" + "'value':'" + value + "'}"
+        print(self.schema)
+
+        response = requests.post(self.postURL + ":" + self.postPort, json=self.schema,
+                                         headers={'Content-type': 'application/json; charset=utf-8'})
+        with open('regLog\LOWSCHEMAJSON.txt', 'a') as f:
+            f.write('::LOWSCHEMAJSON::\n'
+                    'PostJSON:\n'
+                    + str(self.schema) +
+                    '\n---------'
+                    'Response:\n'
+                    + response.text +
+                    '\n')
+
+            #{'gameid': 5, 'gamerid': 'Fluff', 'positions': 5, 'colors': 66, 'value': 'BETRAG'}
+
 
 a = PostTest()
 # a.getGoogle()
-# a.sendEmptyPost()
+#a.sendEmptyPost()
 #a.sendRequest(2, "Dart", 4, 5, "WERT")
 #a.sendRequestDiffSchema(5, "Fluff", 5, 66, "BETRAG")
+a.sendRequestLowSchema(66, "Doris", 7775, 698, "LOW")
 #a.sendRequest(5, "Fluff", 5, 66, "BETRAG")
-a.sendRequestDiffSchema(2, "Dart", 4, 5, "WERT")
+#a.sendRequestDiffSchema(2, "Dart", 4, 5, "WERT")
