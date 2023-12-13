@@ -1,5 +1,4 @@
 from termcolor import cprint
-from InputHandler import *
 
 class GuiValidater:
 

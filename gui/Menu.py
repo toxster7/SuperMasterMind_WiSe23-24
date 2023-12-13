@@ -1,14 +1,14 @@
 from termcolor import cprint, colored
 import sys
 import os
-sys.path.append('/wise23-24_superhirn_25/')
+sys.path.insert(0, '../wise23-24_superhirn_25/')
 # own modules
 # TODO: anpassen der imports
-from MenuPrinter import * 
+from .MenuPrinter import *
 from utilsMind.OsChecker import *
 from utilsMind.InputHandler import *
 from utilsMind.GuiValidater import *
-from Spielfeld import *
+from .Spielfeld import *
 
 class Menu:
     """
@@ -143,7 +143,7 @@ class Menu:
 # nur für das testen hier,
 # wenn später aufgerufen,
 # dann sollte das in die main klasse!
-
+"""
 try:
 
     m = Menu()
@@ -155,3 +155,4 @@ except KeyboardInterrupt as key_inter:
     cprint( "\t\t\t[-] Immer diese Interrupts :(", "red" )
     cprint( "\t\t\t[+] Exiting...", "green" )
     sys.exit(0)
+    """

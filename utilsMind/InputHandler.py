@@ -1,6 +1,6 @@
 from termcolor import cprint
 import sys
-from GuiValidater import *
+from .GuiValidater import *
 
 class InputHandler:
 
