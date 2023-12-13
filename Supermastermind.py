@@ -43,13 +43,13 @@ class Supermastermind:
         self.laeuft = False
 
     def __createCoderBotAndHumanGuesser__(self) -> None:
-        self.coder = BotCoder(self.settings["anzahl_pos"])
-        self.rater = HumanRater(self.settings["anzahl_pos"])
+        self.coder = BotCoder(self.settings["anzahl_pos"], self.settings["anzahl_farben"])
+        self.rater = HumanRater(self.settings["anzahl_pos"], self.settings["anzahl_farben"])
        
 
     def __createCoderHumanAndBotGuesser__(self) -> None:
-        self.coder = HumanCoder(self.settings["anzahl_pos"])
-        self.rater = BotRater(self.settings["anzahl_pos"])
+        self.coder = HumanCoder(self.settings["anzahl_pos"], self.settings["anzahl_farben"])
+        self.rater = BotRater(self.settings["anzahl_pos"], self.settings["anzahl_farben"])
        
 
     def gameLoop(self) -> None:
@@ -62,6 +62,7 @@ class Supermastermind:
                 cprint( "\t\t\t[-] Immer diese Interrupts :(", "red" )
                 cprint( "\t\t\t[+] Exiting...", "green" )
                 sys.exit(0)
+            
             #Set Game Settings
             self.settings = self.menu.handler.getUserInput()
             if(self.settings["guesser"]):
@@ -72,14 +73,18 @@ class Supermastermind:
             self.code = self.coder.createCode()
             self.guesses = []
             self.feedbacks = []
+            feedback = []
 
             for i in range(10):
                 
                 #show intial board
                 self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses, self.feedbacks)
-                
+                print(self.feedbacks)
+                print(self.guesses)
+                print(feedback)
+                print(self.coder.code)
                 #let guesser guess
-                guess = self.rater.rate(None)
+                guess = self.rater.rate(self.guesses,self.feedbacks)
                 
                 #show board after guess
                 self.guesses.append(guess)
@@ -87,12 +92,12 @@ class Supermastermind:
                 self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses, self.feedbacks)
                 
                 #give feedback
-                feedback = self.coder.giveFeedback()
+                feedback = self.coder.giveFeedback(guess.copy())
                 
                 #show board after feedback
                 self.feedbacks[i] = feedback
                 self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses, self.feedbacks)
-
+                
                 feedback_correct = self.rater.bewerteFeedback(None)
 
                 
@@ -108,3 +113,4 @@ class Supermastermind:
 
 
 sm = Supermastermind()
+

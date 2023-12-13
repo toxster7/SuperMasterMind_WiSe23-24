@@ -52,14 +52,14 @@ class Validator:
 
 
 
-    def validateCode( self, input_to_validate, code_len ) -> bool:
+    def validateCode( self, input_to_validate, code_len , n_colors) -> bool:
         """
         diese funktion dient dazu den input des nutzers zu
         validieren. sprich, ob der nutzer auch die angeforderten
         datentypen und die geforderte format des codes einhält
         :return: True/False
         """
-        print(input_to_validate)
+        
         # die folgende überprüfung muss in ein try/except block,
         # da auch benutzer auch chars bzw. strs eigeben kann,
         # das verfehlt den datentype
@@ -87,7 +87,7 @@ class Validator:
                     # sein und wir können false zurückgeben andernfalls
                     # wird true zurückgegeben
 
-                    if ( int( ele ) > 8) or ( int( ele ) <= 0 ):
+                    if ( int( ele ) > int(n_colors)) or ( int( ele ) <= 0 ):
 
                         return True
 
@@ -109,7 +109,7 @@ class Validator:
         datentypen und die geforderte format des codes einhält
         :return: True/False
         """
-        print(input_to_validate)
+        
         # die folgende überprüfung muss in ein try/except block,
         # da auch benutzer auch chars bzw. strs eigeben kann,
         # das verfehlt den datentype
@@ -138,7 +138,7 @@ class Validator:
                     # wird true zurückgegeben
 
                     if ((int( ele ) not in range(7,9)) and (not int(ele) == 0)):
-
+                        cprint("\t\t[-] Ungültiges Feedback... Bitte nutze nur 7,8 und 0", "red")
                         return True
 
                 return False

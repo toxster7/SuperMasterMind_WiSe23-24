@@ -71,7 +71,7 @@ class InputHandler:
 
         return self.auswahl
 
-    def getCodeInput( self, anzahl_pos ):
+    def getCodeInput( self, anzahl_pos, n_colors ):
 
         """
         diese funktion dient dazu den code für das spiel
@@ -101,7 +101,7 @@ class InputHandler:
                 inp = input().split(".")
                 self.code_to_guess = [int(i) for i in inp]
                 
-                check_input        = validater.validateCode( self.code_to_guess, anzahl_pos )
+                check_input        = validater.validateCode( self.code_to_guess, anzahl_pos, n_colors )
 
                 # wenn das immer noch wahr ist, nach der
                 # validierung, wird die liste geleert
@@ -124,7 +124,7 @@ class InputHandler:
         """
         return self.code_to_guess
 
-    def getGuess(self, anzahl_pos) -> list:
+    def getGuess(self, anzahl_pos, n_colors) -> list:
 
         validater   = Validator()
         check_input = True
@@ -134,7 +134,7 @@ class InputHandler:
             try:
                 cprint("\t\t[*] Gebe deinen Guess ein: ", "yellow", end="")
                 self.guess = input().split(".")
-                check_input = validater.validateCode( self.guess, anzahl_pos )
+                check_input = validater.validateCode( self.guess, anzahl_pos, n_colors )
 
                 if check_input:
 

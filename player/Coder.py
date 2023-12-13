@@ -7,42 +7,61 @@ from ourUtils.InputHandler import *
 
 class Coder:
     
-    def __init__(self, code_len) -> None:
+    def __init__(self, code_len, n_colors) -> None:
         self.code = None
         self.code_len = code_len
+        self.n_colors = n_colors
 
     def createCode(self)->list:
         pass
 
-    def giveFeedback(self)->list:
+    def giveFeedback(self, guess)->list:
         pass
-
 
 
 
 class BotCoder(Coder):
 
-    def __init__(self,code_len) -> None:
-        super().__init__(code_len)
+    def __init__(self,code_len, n_colors) -> None:
+        super().__init__(code_len, n_colors)
 
     def createCode(self) -> list:
-        self.code = [random.randint(1, 8) for _ in range(int(self.code_len))]
-        return self.code
+        self.code = [random.randint(1, int(self.n_colors)) for _ in range(int(self.code_len))]
+        return self.code.copy()
     
-    def giveFeedback(self)->list:
-        return [random.randint(7, 8) for _ in range(int(self.code_len))]
+    def giveFeedback(self, guess)->list:
+        feedback = []
+        temp_code = self.code.copy()
+        #check for correct pos
+        for i, cur in enumerate(guess):
+            if temp_code[i] == int(cur):
+                feedback.append(8)
+                temp_code[i] = 0
+                guess[i] = -1
+
+        for i, cur in enumerate(guess):
+            if int(cur) in temp_code:
+                feedback.append(7)
+                temp_code[temp_code.index(int(cur))] = 0
+                guess[i] = -1
+        
+        for cur in guess:    
+            feedback.append(0)
+
+        return feedback[0:int(self.code_len)]
+        
     
 class HumanCoder(Coder):
 
-    def __init__(self, code_len) -> None:
-        super().__init__(code_len)
+    def __init__(self, code_len, n_colors) -> None:
+        super().__init__(code_len, n_colors)
         self.handler = InputHandler()
         
 
     def createCode(self) -> list:
-        return self.handler.getCodeInput(self.code_len)
+        return self.handler.getCodeInput(self.code_len, self.n_colors)
     
-    def giveFeedback(self) -> list:
+    def giveFeedback(self, guess) -> list:
         return self.handler.getFeedback(self.code_len)
 
 class NetCoder(Coder):
@@ -52,6 +71,5 @@ class NetCoder(Coder):
         self.ip = ip
         self.port = port
 
-    
 
     

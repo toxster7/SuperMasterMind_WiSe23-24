@@ -8,11 +8,12 @@ from ourUtils.InputHandler import *
 
 class Rater:
 
-    def __init__(self, code_len) -> None:
+    def __init__(self, code_len, n_colors) -> None:
         self.code_len = code_len
+        self.n_colors = n_colors
         
         
-    def rate(self, runden)->list:
+    def rate(self, guesses, feedbacks)->list:
         pass
 
     def bewerteFeedback(self, runden):
@@ -21,20 +22,22 @@ class Rater:
 
 class BotRater(Rater):
 
-    def __init__(self, code_len) -> None:
-        super().__init__(code_len)
+    def __init__(self, code_len, n_colors) -> None:
+        super().__init__(code_len, n_colors)
 
-    def rate(self, runden)->list:
-        return [random.randint(1, 8) for _ in range(int(self.code_len))]
+    def rate(self, guesses, feedbacks)->list:
+        
+
+        return [random.randint(1, int(self.n_colors)) for _ in range(int(self.code_len))]
     
     def bewerteFeedback(self, runden):
         return False
     
 class HumanRater(Rater):
     
-    def __init__(self, code_len) -> None:
-        super().__init__(code_len)
+    def __init__(self, code_len, n_colors) -> None:
+        super().__init__(code_len, n_colors)
         self.handler = InputHandler()
 
-    def rate(self, runden):
-        return self.handler.getGuess(self.code_len)
+    def rate(self, guesses, feedbacks):
+        return self.handler.getGuess(self.code_len, self.n_colors)
