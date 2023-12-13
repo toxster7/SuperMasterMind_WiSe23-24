@@ -1,7 +1,7 @@
 from termcolor import cprint
 import sys
 sys.path.append('../wise23-24_superhirn_25/')
-from ourUtils.GuiValidater import GuiValidater
+from ourUtils.Validator import Validator
 
 class InputHandler:
 
@@ -16,6 +16,7 @@ class InputHandler:
     code_to_guess : list
     guess         : list
     auswahl       : str
+    guesser       : bool
 
     def __init__( self ) -> None:
         
@@ -41,6 +42,7 @@ class InputHandler:
         self.code_to_guess = []
         self.guess         = []
         self.auswahl       = ""
+        self.guesser       = True
 
     def getUserSelection( self ) -> str:
 
@@ -49,7 +51,7 @@ class InputHandler:
         die auswahl des benutzer entgegenzunehmen
         :return: self.auswahl <str> - gibt die auswahl als str zurück
         """
-        validater   = GuiValidater()
+        validater   = Validator()
         check_input = True
 
         # der schleife läuft so lange bis der benutzer
@@ -65,11 +67,11 @@ class InputHandler:
             # aber mit dem cprint sieht es einfach cooler aus :)           
             cprint( "\t\t[*] Optionen: ", "yellow", end="" )
             self.auswahl = input()
-            check_input  = validater.validateMenu( self.auswahl )
+            check_input  = validater.validateRangeNumbers( self.auswahl, 1,3 )
 
         return self.auswahl
 
-    def getCodeInput( self ):
+    def getCodeInput( self, anzahl_pos ):
 
         """
         diese funktion dient dazu den code für das spiel
@@ -81,7 +83,7 @@ class InputHandler:
         # da der input des user validiert werden muss,
         # ob der code im richtigem format ist
 
-        validater   = GuiValidater()
+        validater   = Validator()
         check_input = True
         cprint("\t\t[!] Der Code sollte folgendes Format habe, als Beispiel: 1.2.3.4 ", "magenta")
 
@@ -96,8 +98,10 @@ class InputHandler:
                 # platz, in der liste
 
                 cprint("\t\t[*] Gebe den Code ein: ", "yellow", end="")
-                self.code_to_guess = input().split(".")
-                check_input        = validater.validateCode( self.code_to_guess, self.anzahl_pos )
+                inp = input().split(".")
+                self.code_to_guess = [int(i) for i in inp]
+                
+                check_input        = validater.validateCode( self.code_to_guess, anzahl_pos )
 
                 # wenn das immer noch wahr ist, nach der
                 # validierung, wird die liste geleert
@@ -110,6 +114,7 @@ class InputHandler:
                 cprint("\t\t[-] Immer diese Interrupts :(", "red")
                 cprint("\t\t[+] Exiting...", "green")
                 sys.exit(0)
+        return self.code_to_guess
 
     def getCode(self) -> list:
         """
@@ -119,9 +124,9 @@ class InputHandler:
         """
         return self.code_to_guess
 
-    def getGuess(self) -> list:
+    def getGuess(self, anzahl_pos) -> list:
 
-        validater   = GuiValidater()
+        validater   = Validator()
         check_input = True
 
         while check_input:
@@ -129,7 +134,7 @@ class InputHandler:
             try:
                 cprint("\t\t[*] Gebe deinen Guess ein: ", "yellow", end="")
                 self.guess = input().split(".")
-                check_input = validater.validateCode( self.guess, self.anzahl_pos )
+                check_input = validater.validateCode( self.guess, anzahl_pos )
 
                 if check_input:
 
@@ -142,6 +147,31 @@ class InputHandler:
                 sys.exit(0)
 
         return self.guess
+
+    def getFeedback(self, anzahl_pos) -> list:
+
+        validater   = Validator()
+        check_input = True
+
+        while check_input:
+
+            try:
+                cprint("\t\t[*] Gebe dein Feedback ein: ", "yellow", end="")
+                feedback = input().split(".")
+                check_input = validater.validateFeedback( feedback, anzahl_pos )
+
+                if check_input:
+
+                    feedback = []
+
+            except KeyboardInterrupt:
+                print()
+                cprint("\t\t[-] Immer diese Interrupts :(", "red")
+                cprint("\t\t[+] Exiting...", "green")
+                sys.exit(0)
+
+        return feedback
+
 
     def setUserInput( self, local_game ) -> None:
 
@@ -156,7 +186,7 @@ class InputHandler:
         # die checker sind nicht gut gelöst
         # TODO: bessere idee
 
-        validater     = GuiValidater()
+        validater     = Validator()
         check_input_1 = True
         check_input_2 = True
             
@@ -173,13 +203,13 @@ class InputHandler:
         
             cprint("\t\t[*] Mit wie vielen Farben möchtest Du spielen [min 2 - max 8]: ", "yellow", end="")
             self.anzahl_farben = input()
-            check_input_1      = validater.validateRangeNumbers( self.anzahl_farben )
+            check_input_1      = validater.validateRangeNumbers( self.anzahl_farben,2,9)
 
         while check_input_2:
             
             cprint("\t\t[*] Mit wie vielen Feldern möchtest Du spielen [min 4 - max 5]: ", "yellow", end="")
             self.anzahl_pos = input()
-            check_input_2   = validater.validateRangeNumbers( self.anzahl_pos )
+            check_input_2   = validater.validateRangeNumbers( self.anzahl_pos,4,6)
         
         if not local_game:
 
@@ -207,7 +237,8 @@ class InputHandler:
                          "game_id"      : self.game_id, 
                          "gamer_id"     : self.gamer_id,
                          "anzahl_farben": self.anzahl_farben,
-                         "anzahl_pos"   : self.anzahl_pos
+                         "anzahl_pos"   : self.anzahl_pos,
+                         "guesser"      : self.guesser
                         }
         
         # es muss überprüft werden, ob das spiel nur lokal

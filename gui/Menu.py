@@ -5,7 +5,7 @@ sys.path.append('../wise23-24_superhirn_25/')
 # TODO: anpassen der imports
 from gui.MenuPrinter import MenuPrinter 
 from gui.OsChecker import OsChecker
-from gui.InputHandler import InputHandler
+from ourUtils.InputHandler import InputHandler
 from gui.Spielfeld import Spielfeld
 
 
@@ -79,8 +79,8 @@ class Menu:
 
             # prüfen welche option der nutzer gewählt hat
             # bzw. als der benutzer spielen möchte
+            
             # wenn der benutzer '1' -> Codierer
-
             if self.auswahl == "1":
                 
                 # clearen des terminals   
@@ -93,15 +93,15 @@ class Menu:
                 # oder über das netzwerk spielen möchte
                 # mit dieser funktion wird auch gleichzeitig
                 # das menü angezeigt
-
+                
                 OsChecker.clearTerminal() 
                 MenuPrinter.displayGameType() 
                 self.guesser = False
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
+                self.handler.guesser = False
                 
             # wenn der benutzer '2' -> Rater
-
             elif self.auswahl == "2":
 
                 # clearen des terminals   
@@ -119,8 +119,8 @@ class Menu:
                 MenuPrinter.displayGameType()
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
-                self.settings.guesser = True
-                return self.handler
+                self.handler.guesser = True
+            return self.handler
                 
     def selectLocalOrNet( self ) -> None:
 
@@ -149,7 +149,7 @@ class Menu:
 # nur für das testen hier,
 # wenn später aufgerufen,
 # dann sollte das in die main klasse!
-
+'''
 try:
 
     m = Menu()
@@ -161,3 +161,4 @@ except KeyboardInterrupt as key_inter:
     cprint( "\t\t\t[-] Immer diese Interrupts :(", "red" )
     cprint( "\t\t\t[+] Exiting...", "green" )
     sys.exit(0)
+'''

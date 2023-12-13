@@ -32,7 +32,7 @@ class CodeColors:
 
         for buff, nr in enumerate( code_to_guess ):
             
-            code_to_guess[ buff ] = colored( nr, self.getColor( int(nr) ) )
+            code_to_guess[ buff ] = colored( nr, self.getColor( nr ) )
 
         return code_to_guess
 
