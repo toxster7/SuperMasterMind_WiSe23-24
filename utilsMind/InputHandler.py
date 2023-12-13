@@ -178,7 +178,7 @@ class InputHandler:
             
             cprint("\t\t[*] Mit wie vielen Feldern möchtest Du spielen [min 4 - max 5]: ", "yellow", end="")
             self.anzahl_pos = input()
-            check_input_2   = validater.validateRangeNumbers( self.anzahl_pos )
+            check_input_2   = validater.validateCodeNr( self.anzahl_pos )
         
         if not local_game:
 

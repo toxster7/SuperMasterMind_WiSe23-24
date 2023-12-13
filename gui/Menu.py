@@ -96,6 +96,7 @@ class Menu:
                 self.guesser = False
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
+                sys.exit(0) # nur für präsi
 
             # wenn der benutzer '2' -> Rater
 
@@ -139,20 +140,3 @@ class Menu:
 
             self.handler.setUserInput( False )
             self.game_grid.showGamefield( self.handler, self.guesser )
-
-# nur für das testen hier,
-# wenn später aufgerufen,
-# dann sollte das in die main klasse!
-"""
-try:
-
-    m = Menu()
-    m.runMenus()
-
-except KeyboardInterrupt as key_inter:
-    
-    print()
-    cprint( "\t\t\t[-] Immer diese Interrupts :(", "red" )
-    cprint( "\t\t\t[+] Exiting...", "green" )
-    sys.exit(0)
-    """
