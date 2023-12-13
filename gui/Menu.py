@@ -60,7 +60,7 @@ class Menu:
         if self.auswahl == "2":
 
             # das spiel wird einfach beendet    
-            cprint( "\t\t[+] Aufwieder sehen :)", "green" )
+            cprint( "\t\t[+] Aufwiedersehen :)", "green" )
             sys.exit( 0 )
 
         elif self.auswahl == "1":
