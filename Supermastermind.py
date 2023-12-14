@@ -78,37 +78,32 @@ class Supermastermind:
             for i in range(10):
                 
                 #show intial board
-                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses, self.feedbacks)
+                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
                 print(self.feedbacks)
                 print(self.guesses)
                 print(feedback)
                 print(self.coder.code)
                 #let guesser guess
-                guess = self.rater.rate(self.guesses,self.feedbacks)
+                guess = self.rater.rate(self.guesses.copy(),self.feedbacks.copy())
                 
                 #show board after guess
                 self.guesses.append(guess)
                 self.feedbacks.append([0 for _ in range(int(self.settings["anzahl_pos"]))])
-                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses, self.feedbacks)
+                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
                 
+                print(self.feedbacks)
+                print(self.guesses)
+                print(feedback)
+                print(self.rater.possible_codes)
                 #give feedback
                 feedback = self.coder.giveFeedback(guess.copy())
                 
                 #show board after feedback
                 self.feedbacks[i] = feedback
-                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses, self.feedbacks)
+                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
                 
-                feedback_correct = self.rater.bewerteFeedback(None)
-
-                
-                '''
-                print(f"Versuch: {guess}")
-                print(f"Feedback:{feedback}")
-                print(f"Feedback ok? {feedback_correct}")
-                '''
-                #self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses, self.feedbacks)
-                
-                
+              
+      
             
 
 
