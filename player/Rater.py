@@ -59,8 +59,6 @@ class BotRater(Rater):
 
         return feedback[0:int(self.code_len)]
 
-
-
     def minimize_maximums(self, guess, feedback):
         # Minimiert das Maximum der möglichen Antworten basierend auf vorherigen Vermutungen.
         max_min = len(self.possible_codes)
@@ -70,7 +68,8 @@ class BotRater(Rater):
         for code in self.possible_codes:
             if self.giveFeedback(list(code), list(guess).copy()) != feedback:
                 self.possible_codes.remove(tuple(code))
-
+            if(len(self.possible_codes) == 0):
+                return None
         return list(self.possible_codes[0])
 
     def rate(self, guesses, feedbacks)->list:
@@ -93,7 +92,7 @@ class HumanRater(Rater):
     def rate(self, guesses, feedbacks):
         return self.handler.getGuess(self.code_len, self.n_colors)
 
-
+'''
 bot = BotRater(5,8)
 #print(bot.get_all_possible_codes())
 guess= [1,1,1,1,1]
@@ -114,4 +113,4 @@ for _ in range(30):
 
     
     #print(bot.possible_codes)
-    
+'''    
