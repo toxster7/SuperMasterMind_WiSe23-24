@@ -70,6 +70,7 @@ class BotRater(Rater):
                 self.possible_codes.remove(tuple(code))
             if(len(self.possible_codes) == 0):
                 return None
+        #return list(self.possible_codes[0])        
         return list(self.possible_codes[0])
 
     def rate(self, guesses, feedbacks)->list:
@@ -92,25 +93,28 @@ class HumanRater(Rater):
     def rate(self, guesses, feedbacks):
         return self.handler.getGuess(self.code_len, self.n_colors)
 
-'''
-bot = BotRater(5,8)
-#print(bot.get_all_possible_codes())
-guess= [1,1,1,1,1]
-code = [5,2,6,4,8]
+
+'''bot = BotRater(5,8)
+ #print(bot.get_all_possible_codes())
+
+
+code = [7,3,6,6,8]
 guesses = []
 feedbacks = []
 #print(bot.giveFeedback(code, [1,1,1,4]))
 
-for _ in range(30):
+for _ in range(10):
     guess = bot.rate(guesses, feedbacks)
-    print("Code", code)
-    print("Guess", guess)
+    #print("Code", code)
+    #print("Guess", guess)
     feedback = bot.giveFeedback(code, list(guess).copy())
-    print("Feedback", feedback)
+    #print("Feedback", feedback)
     guesses.append(guess)
     feedbacks.append(feedback)
-  
+
 
     
-    #print(bot.possible_codes)
-'''    
+    print(len(bot.possible_codes))  
+
+#x=bot.minimize_maximums([3,2,3,1,4],["8","8","8","8","8"])
+#print(len(x))'''
