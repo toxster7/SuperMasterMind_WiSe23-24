@@ -61,21 +61,26 @@ class BotRater(Rater):
 
     def minimize_maximums(self, guess, feedback):
         # Minimiert das Maximum der möglichen Antworten basierend auf vorherigen Vermutungen.
-        max_min = len(self.possible_codes)
-        best_guess = None
-        corPos, corCol = self.calcCorPosCorCol(feedback)
         #self.possible_codes.remove(tuple(guess))
+        self.possible_codes = [code for code in self.possible_codes if self.giveFeedback(list(code), list(guess).copy()) == feedback]
+        
+        if not self.possible_codes:
+            return None
+        '''
         for code in self.possible_codes:
             if self.giveFeedback(list(code), list(guess).copy()) != feedback:
                 self.possible_codes.remove(tuple(code))
             if(len(self.possible_codes) == 0):
                 return None
-        return list(self.possible_codes[0])
+            rand = random.randint(0, len(self.possible_codes)-1)
+        '''
+        return list(random.choice(self.possible_codes))
 
     def rate(self, guesses, feedbacks)->list:
         
         if(len(guesses)==0):
-            guess = (self.colors[0],) * int(self.code_len)  # Erster Tipp ist eine beliebige Kombination
+            random_number = random.randint(1, int(self.n_colors))
+            guess = (self.colors[random_number-1],) * int(self.code_len)  # Erster Tipp ist eine beliebige Kombination
         else:
             guess = self.minimize_maximums(guesses[len(guesses)-1].copy(), feedbacks[len(guesses)-1].copy())       
         return list(guess)
@@ -93,15 +98,15 @@ class HumanRater(Rater):
         return self.handler.getGuess(self.code_len, self.n_colors)
 
 '''
-bot = BotRater(5,8)
+bot = BotRater(4,4)
 #print(bot.get_all_possible_codes())
 guess= [1,1,1,1,1]
-code = [5,2,6,4,8]
+code = [2,2,1,4]
 guesses = []
 feedbacks = []
 #print(bot.giveFeedback(code, [1,1,1,4]))
 
-for _ in range(30):
+for _ in range(10):
     guess = bot.rate(guesses, feedbacks)
     print("Code", code)
     print("Guess", guess)

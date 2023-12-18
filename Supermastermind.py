@@ -82,7 +82,9 @@ class Supermastermind:
       
                 #let guesser guess
                 guess = self.rater.rate(self.guesses.copy(),self.feedbacks.copy())
-                
+                if(guess == None):
+                    print("Oh, da hat wohl jemand betrogen. Verloren!")
+                    input("Enter um zurück ins Menü zu kommen :|")
                 #show board after guess
                 self.guesses.append(guess)
                 self.feedbacks.append([0 for _ in range(int(self.settings["anzahl_pos"]))])
@@ -91,9 +93,7 @@ class Supermastermind:
                 
                 #give feedback
                 feedback = self.coder.giveFeedback(guess.copy())
-                if(feedback == None):
-                    print("Oh, da hat wohl jemand betrogen. Verloren!")
-                    input("Enter um zurück ins Menü zu kommen :|")
+
                 #show board after feedback
                 self.feedbacks[i] = feedback
                 self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
