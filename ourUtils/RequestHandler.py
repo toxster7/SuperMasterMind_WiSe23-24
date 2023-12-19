@@ -1,5 +1,11 @@
 import requests
 import json
+from jsonschema import Draft7Validator
+import sys
+sys.path.append('../wise23-24_superhirn_25/')
+
+
+
 
 
 class RequestHandler:
@@ -7,21 +13,49 @@ class RequestHandler:
 
     """
 
-    def __init__(self):
+    def __init__(self, gamerid,code_len, n_colors,URL, Port):
         """
 
         """
 
-        self.gameid = ""
-        self.gamerid = ""
-        self.positions = ""
-        self.colors = ""
+        self.gameid = 0
+        self.gamerid = gamerid
+        self.positions = code_len
+        self.colors = n_colors
         self.value = ""
 
 
         self.json_schema = ""
-        self.postURL = "http://localhost"
-        self.postPort = "8080"
+        self.postURL = URL
+        self.postPort = Port
+
+    def generate_json_template(self):
+        self.readFile()
+        template = {}
+        for key, value in self.json_schema.items():
+            if key == 'required':
+                continue
+            if isinstance(value, dict):
+                if 'type' in value:
+                    if value['type'] == 'string':
+                        template[key] = ''
+                    elif value['type'] == 'integer':
+                        template[key] = 0
+                    # Weitere Datentypen können hinzugefügt werden
+                else:
+                    template[key] = self.generate_json_template(value)
+        return template
+
+    def prepareJson(self, game_id,value):
+        template = self.generate_json_template()
+        template["gameid"] = game_id
+        template["gamerid"] = self.gamerid
+        template["positions"] = self.positions
+        template["colors"] = self.colors
+        template["value"] = value
+        
+        return template
+
 
     def eingabePOSTZiel(self, ziel, zielPort):
         """
@@ -37,12 +71,13 @@ class RequestHandler:
 
         :return:
         """
-        with open("schema.json", "r", encoding="UTF8") as json_data:
+        with open("ourUtils/schema.json", "r", encoding="UTF8") as json_data:
             self.json_schema = json.load(json_data)
         json_data.close()
-        # print(self.json_schema)
+        #print(self.json_schema)
 
-    def sendRequest(self, gameid, gamerid, positions, colors, value):
+    #try with https://postman-echo.com/post
+    def sendRequest(self, game_id,value):
         """
 
         :param gameid:
@@ -52,16 +87,28 @@ class RequestHandler:
         :param value:
         :return:
         """
-        #
-        self.json_schema["gameid"]["type"] = gameid
-        self.json_schema["gamerid"]["type"] = gamerid
-        self.json_schema["positions"]["type"] = positions
-        self.json_schema["colors"]["type"] = colors
-        self.json_schema["value"]["type"] = value
+        
+        request = self.prepareJson(game_id,value)
 
-        response = requests.post(self.postURL + ":" + self.postPort, json=self.json_schema,
+        print(request)
+        try:
+            response = requests.post(self.postURL, json=request,
                                  headers={'Content-type': 'application/json; charset=utf-8'})
+            print(response.json())
+        except requests.RequestException as e:
+            print(f"Error: {e}")
 
+        '''
+        try:
+            response = requests.head(url, timeout=10)
+            if response.status_code == 200:
+                print(f"URL {url} is reachable.")
+            else:
+                print(f"URL {url} is not reachable. Status code: {response.status_code}")
+        except requests.RequestException as e:
+            print(f"Error: {e}")
+    
+        '''
         if response.status_code == 200:
             print("Zug erfolgreich abgeschickt")
             """
@@ -72,20 +119,20 @@ class RequestHandler:
             print(response.text)
             print("___________")
             """
-            self.getResponse(response)
-
-
+        
         else:
-            print("Zug nicht erfolgreich abgeschickt. Status: " + str(response.status_code))
-
+            print(f"URL {url} is not reachable. Status code: {response.status_code}")
+        
+        return response.json()["json"]
+        
     def getResponse(self, response):
         #responseJSON = json.load(response.json())
         responseJSON = self.json_schema
-        self.gameid = responseJSON["gameid"]["type"]
-        self.gamerid = responseJSON["gamerid"]["type"]
-        self.positions = responseJSON["positions"]["type"]
-        self.colors = responseJSON["colors"]["type"]
-        self.value = responseJSON["value"]["type"]
+        self.gameid = responseJSON["gameid"]
+        self.gamerid = responseJSON["gamerid"]
+        self.positions = responseJSON["positions"]
+        self.colors = responseJSON["colors"]
+        self.value = responseJSON["value"]
 
         moveDict = {
             "gameid": self.gameid,
@@ -97,7 +144,14 @@ class RequestHandler:
         #print(moveDict)
         return moveDict
 
-
-a = RequestHandler()
+'''
+a = RequestHandler("flrnbr", 4, 4, 'https://postman-echo.com/post:8080', 4000)
 a.readFile()
-a.sendRequest(55, "Ilai", 4, 4, "Valie")
+response = a.sendRequest(0,"Hallo")
+print(response["gameid"])
+print(response["gamerid"])
+print(response["positions"])
+print(response["colors"])
+print(response["value"])
+'''
+

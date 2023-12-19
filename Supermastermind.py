@@ -50,6 +50,10 @@ class Supermastermind:
     def __createCoderHumanAndBotGuesser__(self) -> None:
         self.coder = HumanCoder(self.settings["anzahl_pos"], self.settings["anzahl_farben"])
         self.rater = BotRater(self.settings["anzahl_pos"], self.settings["anzahl_farben"])
+
+    def __createCoderNetAndHumanGuesser__(self) -> None:
+        self.coder = NetCoder(self.settings["anzahl_pos"], self.settings["anzahl_farben"], self.settings["URL"], self.settings["port"], self.settings["gamer_id"])
+        self.rater = HumanRater(self.settings["anzahl_pos"], self.settings["anzahl_farben"])
        
 
     def gameLoop(self) -> None:
@@ -66,7 +70,10 @@ class Supermastermind:
             #Set Game Settings
             self.settings = self.menu.handler.getUserInput()
             if(self.settings["guesser"]):
-                self.__createCoderBotAndHumanGuesser__()
+                if(not self.menu.handler.run_local):
+                    self.__createCoderNetAndHumanGuesser__()
+                else:    
+                    self.__createCoderBotAndHumanGuesser__()
             else:
                 self.__createCoderHumanAndBotGuesser__()
             
@@ -78,8 +85,10 @@ class Supermastermind:
             for i in range(10):
                 
                 #show intial board
-                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
-      
+                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code.copy() ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
+                print(F"Code {self.code}")
+                print(f"Feedbacks {self.feedbacks}")
+                print(f"Codes {self.guesses}")
                 #let guesser guess
                 guess = self.rater.rate(self.guesses.copy(),self.feedbacks.copy())
                 if(guess == None):
@@ -88,7 +97,7 @@ class Supermastermind:
                 #show board after guess
                 self.guesses.append(guess)
                 self.feedbacks.append([0 for _ in range(int(self.settings["anzahl_pos"]))])
-                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
+                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code.copy() ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
                 
                 
                 #give feedback
@@ -96,7 +105,7 @@ class Supermastermind:
 
                 #show board after feedback
                 self.feedbacks[i] = feedback
-                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
+                self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code.copy() ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
                 
                 if(len(feedback)==feedback.count('8') or len(feedback)== feedback.count(8)):
                     print("Der Rater hat gewonnen!")

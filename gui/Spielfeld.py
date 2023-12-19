@@ -67,8 +67,8 @@ class Spielfeld:
 
     def formatPlayfield( self, anzahl_pos, guesses, feedbacks):
 
-        format_print_5 = "\t\t| \t{nr_1}\t{nr_2}\t{nr_3}\t{nr_4}\t{nr_5}\t || \t{f_1}\t{f_2}\t{f_3}\t{f_4}\t   {f_5}\t |"
-        format_print_4 = "\t\t| \t{nr_1}\t{nr_2}\t{nr_3}\t{nr_4}  || \t{f_1}\t{f_2}\t{f_3}\t{f_4}  |"
+        format_print_5 = "\t\t| \t{nr_1}\t{nr_2}\t{nr_3}\t{nr_4}\t{nr_5}\t || \t{f_1}\t{f_2}\t{f_3}\t{f_4}\t{f_5}\t |"
+        format_print_4 = "\t\t| {nr_1}\t{nr_2}\t{nr_3}\t{nr_4}  || \t{f_1}\t{f_2}\t{f_3}\t{f_4}  |"
         play_grid      = ["\t\t+-Guesses"+ "-" * 26 +  "++" +  "-Feedback"+ "-" * 21 + "+"]
 
         
