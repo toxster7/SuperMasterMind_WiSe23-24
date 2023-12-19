@@ -1,11 +1,9 @@
 import requests
 import json
 from jsonschema import Draft7Validator
+from urllib.parse import urlparse, urlunparse
 import sys
 sys.path.append('../wise23-24_superhirn_25/')
-
-
-
 
 
 class RequestHandler:
@@ -26,8 +24,9 @@ class RequestHandler:
 
 
         self.json_schema = ""
-        self.postURL = URL
+        self.postURL = self.generateURLwitPort(URL,Port)
         self.postPort = Port
+        
 
     def generate_json_template(self):
         self.readFile()
@@ -98,17 +97,7 @@ class RequestHandler:
         except requests.RequestException as e:
             print(f"Error: {e}")
 
-        '''
-        try:
-            response = requests.head(url, timeout=10)
-            if response.status_code == 200:
-                print(f"URL {url} is reachable.")
-            else:
-                print(f"URL {url} is not reachable. Status code: {response.status_code}")
-        except requests.RequestException as e:
-            print(f"Error: {e}")
-    
-        '''
+
         if response.status_code == 200:
             print("Zug erfolgreich abgeschickt")
             """
@@ -121,8 +110,13 @@ class RequestHandler:
             """
         
         else:
-            print(f"URL {url} is not reachable. Status code: {response.status_code}")
-        
+            print(f"URL {self.postURL} is not reachable. Status code: {response.status_code}")
+
+        with open('response.txt', 'a') as file:
+            file.write(response.text)
+            file.write('\n')
+            print("Response erfolgreich in response.txt geschrieben.")
+            
         return response.json()["json"]
         
     def getResponse(self, response):
@@ -144,8 +138,19 @@ class RequestHandler:
         #print(moveDict)
         return moveDict
 
+    def generateURLwitPort(self,url, port):
+        
+        parsed_url = urlparse(url)
+
+        # Angenommen der Port ist 8080
+
+        # Füge den Port zur URL hinzu
+        new_url = urlunparse((parsed_url.scheme, parsed_url.netloc + f':{port}', parsed_url.path, parsed_url.params, parsed_url.query, parsed_url.fragment))
+
+        return new_url
+
 '''
-a = RequestHandler("flrnbr", 4, 4, 'https://postman-echo.com/post:8080', 4000)
+a = RequestHandler("flrnbr", 4, 4, 'https://postman-echo.com/post', 443)
 a.readFile()
 response = a.sendRequest(0,"Hallo")
 print(response["gameid"])

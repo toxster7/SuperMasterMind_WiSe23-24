@@ -104,9 +104,8 @@ class NetCoder(Coder):
         ############
         return feedback
     
-coder = NetCoder(5 , 4,'https://postman-echo.com/post', 40, "flrnbr")
+coder = NetCoder(5 , 4,'https://postman-echo.com/post', 443, "flrnbr")
 #hCoder = BotCoder(4,4)
 #print(hCoder.createCode())
 print(coder.createCode())
-coder.game_id = 23
 print(coder.giveFeedback(['1','2','3','4','2']))
