@@ -77,34 +77,39 @@ class Spielfeld:
         for nr in self.code:
             print(" "+ nr + " ", end="")
         print()
+        new_feedbacks = feedbacks.copy()
         print(play_grid[0])
         for i, guess in enumerate(guesses):
-
+            new_guess = self.term_colors.coloredFormatStr(guess.copy())
+            
+            new_feedback = self.term_colors.coloredFormatStr(new_feedbacks[i].copy())
+            print(new_feedbacks)
+            
             if anzahl_pos == "5":
 
-                play_grid.append( format_print_5.format( nr_1 = guess[0],
-                                             nr_2 = guess[1],
-                                             nr_3 = guess[2],
-                                             nr_4 = guess[3],
-                                             nr_5 = guess[4],
-                                             f_1 = feedbacks[i][0],
-                                             f_2 = feedbacks[i][1],
-                                             f_3 = feedbacks[i][2],
-                                             f_4 = feedbacks[i][3],
-                                             f_5 = feedbacks[i][4]
+                play_grid.append( format_print_5.format( nr_1 = new_guess[0],
+                                             nr_2 = new_guess[1],
+                                             nr_3 = new_guess[2],
+                                             nr_4 = new_guess[3],
+                                             nr_5 = new_guess[4],
+                                             f_1 = new_feedback[0],
+                                             f_2 = new_feedback[1],
+                                             f_3 = new_feedback[2],
+                                             f_4 = new_feedback[3],
+                                             f_5 = new_feedback[4]
                                              ))
 
             elif anzahl_pos == "4":
 
-                play_grid.append( format_print_4.format( nr_1 = guess[0],
-                                             nr_2 = guess[1],
-                                             nr_3 = guess[2],
-                                             nr_4 = guess[3],
-                                             f_1 = feedbacks[i][0],
-                                             f_2 = feedbacks[i][1],
-                                             f_3 = feedbacks[i][2],
-                                             f_4 = feedbacks[i][3]
-                                            ) )
+                play_grid.append( format_print_4.format( nr_1 = new_guess[0],
+                                             nr_2 = new_guess[1],
+                                             nr_3 = new_guess[2],
+                                             nr_4 = new_guess[3],
+                                             f_1 = new_feedback[0],
+                                             f_2 = new_feedback[1],
+                                             f_3 = new_feedback[2],
+                                             f_4 = new_feedback[3]
+                                            ))
 
             OsChecker.clearTerminal()
             print("\t\t[DEBUG] ", end="")
@@ -117,6 +122,6 @@ class Spielfeld:
 
             if i < 10:
                 print()
-                print("\t\t[+] Guess: {}".format( i ))
+                print("\t\t[+] Guess: {}".format( i+1 ))
 
             

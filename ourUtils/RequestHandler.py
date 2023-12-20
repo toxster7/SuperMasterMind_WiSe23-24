@@ -138,25 +138,34 @@ class RequestHandler:
         #print(moveDict)
         return moveDict
 
-    def generateURLwitPort(self,url, port):
-        
-        parsed_url = urlparse(url)
 
-        # Angenommen der Port ist 8080
+    def generateURLwitPort(self,url_or_ip, port):
+        parsed_url = urlparse(url_or_ip)
 
-        # Füge den Port zur URL hinzu
-        new_url = urlunparse((parsed_url.scheme, parsed_url.netloc + f':{port}', parsed_url.path, parsed_url.params, parsed_url.query, parsed_url.fragment))
+        # Überprüfen, ob der gegebene String eine IP-Adresse oder eine URL ist
+        if parsed_url.netloc:
+            # Der gegebene String ist eine URL
+            new_netloc = f"{parsed_url.hostname}:{port}" if parsed_url.port is None else f"{parsed_url.hostname}:{port}"
+            new_url = urlunparse((parsed_url.scheme, new_netloc, parsed_url.path, parsed_url.params, parsed_url.query, parsed_url.fragment))
+
+        else:
+            # Der gegebene String ist eine IP-Adresse
+            new_netloc = f"{url_or_ip}:{port}"
+            return new_netloc
+            #new_url = urlunparse((parsed_url.scheme, new_netloc, parsed_url.path, parsed_url.params, parsed_url.query, parsed_url.fragment))
 
         return new_url
 
-'''
-a = RequestHandler("flrnbr", 4, 4, 'https://postman-echo.com/post', 443)
+
+a = RequestHandler("flrnbr", 4, 4, 'https://www.postman-echo.com/post', 443)
 a.readFile()
+print(a.postURL)
+#print(a.generateURLwitPort('127.0.0.1', 443))
+#print(a.generateURLwitPort('https://www.postman-echo.com/post', 443))
+
 response = a.sendRequest(0,"Hallo")
 print(response["gameid"])
 print(response["gamerid"])
 print(response["positions"])
 print(response["colors"])
 print(response["value"])
-'''
-

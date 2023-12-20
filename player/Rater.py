@@ -75,6 +75,12 @@ class BotRater(Rater):
             rand = random.randint(0, len(self.possible_codes)-1)
         '''
         return list(random.choice(self.possible_codes))
+    
+    def findMinFeedback(self):
+        min = len(self.possible_codes)
+        for code in self.possible_codes:
+            pass            
+
 
     def rate(self, guesses, feedbacks)->list:
         
@@ -82,7 +88,11 @@ class BotRater(Rater):
             random_number = random.randint(1, int(self.n_colors))
             guess = (self.colors[random_number-1],) * int(self.code_len)  # Erster Tipp ist eine beliebige Kombination
         else:
-            guess = self.minimize_maximums(guesses[len(guesses)-1].copy(), feedbacks[len(guesses)-1].copy())       
+            guess = self.minimize_maximums(guesses[len(guesses)-1].copy(), feedbacks[len(guesses)-1].copy())  
+            if(not guess):
+                return None
+            #berechne welcher nächster Versuch, die meisten weiteren Werte eliminiert, wenn er nicht der Gesuchte wert ist
+            #bestimme dazu welcher der möglichen werte für die wenigsten anderen Werte aus der übrigen Wertemenge, das gleiche Feedback erzeugt     
         return list(guess)
     
     def bewerteFeedback(self, runden):

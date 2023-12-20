@@ -17,7 +17,7 @@ class CodeColors:
         self.colors[5] = "magenta" # orange gibt es nichto
         self.colors[6] = "cyan" # orange gibt es nicht
         self.colors[7] = "white"
-        self.colors[8] = "black"
+        self.colors[8] = "dark_grey"
 
     def getColor(self, key) -> str:
         """
@@ -30,9 +30,9 @@ class CodeColors:
 
     def coloredFormatStr( self, code_to_guess ) -> list:
 
-        for buff, nr in enumerate( code_to_guess ):
+        for buff, nr in enumerate( code_to_guess.copy() ):
             
-            code_to_guess[ buff ] = colored( nr, self.getColor( nr ) )
+            code_to_guess[ buff ] = colored( int(nr), self.getColor( int(nr )) )
 
         return code_to_guess
 

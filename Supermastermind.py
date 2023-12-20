@@ -94,6 +94,7 @@ class Supermastermind:
                 if(guess == None):
                     print("Oh, da hat wohl jemand betrogen. Verloren!")
                     input("Enter um zurück ins Menü zu kommen :|")
+                    break
                 #show board after guess
                 self.guesses.append(guess)
                 self.feedbacks.append([0 for _ in range(int(self.settings["anzahl_pos"]))])
