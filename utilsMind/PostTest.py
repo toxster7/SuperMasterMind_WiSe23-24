@@ -43,18 +43,18 @@ class PostTest:
         self.gamerid = "Korrekte Eingabe"
         self.positions = 5
         self.colors = 4
-        self.value = "12344,87877"
+        self.value = "12344"
 
         with open('regLog\KORREKTEEINGABE.txt', 'a') as f:
             f.write('::EMPTYJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
         self.sendRequestDiffSchema(self.gameid, self.gamerid, self.positions, self.colors, self.value)
-        with open('regLog\KORREKTE EINGABE.txt', 'a') as f:
+        with open('regLog\KORREKTEEINGABE.txt', 'a') as f:
             f.write('::LOWSCHEMAJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
         self.sendRequest(self.gameid, self.gamerid, self.positions, self.colors, self.value)
-        with open('regLog\KORREKTE EINGABE.txt', 'a') as f:
+        with open('regLog\KORREKTEEINGABE.txt', 'a') as f:
             f.write('::VORGABEJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
         self.sendRequestLowSchema(self.gameid, self.gamerid, self.positions, self.colors, self.value)
-        with open('regLog\KORREKTE EINGABE.txt', 'a') as f:
+        with open('regLog\KORREKTEEINGABE.txt', 'a') as f:
             f.write('::LOWSCHEMAJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
 
         print("Korrekte Eingabe Strings")
@@ -62,7 +62,7 @@ class PostTest:
         self.gamerid = "Korrekte Eingabe Strings"
         self.positions = "3"
         self.colors = "3"
-        self.value = "123,787"
+        self.value = "123"
 
         with open('regLog\KORREKTEEINGABESTRING.txt', 'a') as f:
             f.write('::EMPTYJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
@@ -77,25 +77,48 @@ class PostTest:
             f.write('::LOWSCHEMAJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
 
         print("Falsche Eingabe")
-        self.gameid = "1"
-        self.gamerid = "Korrekte Eingabe Strings"
-        self.positions = "3"
-        self.colors = "3"
-        self.value = "123,787"
+        self.gameid = 1
+        self.gamerid = "Falsche Eingabe Strings"
+        self.positions = 3
+        self.colors = 3
+        self.value = "1234"
 
-        with open('regLog\KORREKTEEINGABESTRING.txt', 'a') as f:
+        with open('regLog\FALSCHEEINGABE.txt', 'a') as f:
             f.write(
                 '::EMPTYJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
         self.sendRequestDiffSchema(self.gameid, self.gamerid, self.positions, self.colors, self.value)
-        with open('regLog\KORREKTEEINGABESTRING.txt', 'a') as f:
+        with open('regLog\FALSCHEEINGABE.txt', 'a') as f:
             f.write(
                 '::LOWSCHEMAJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
         self.sendRequest(self.gameid, self.gamerid, self.positions, self.colors, self.value)
-        with open('regLog\KORREKTEEINGABESTRING.txt', 'a') as f:
+        with open('regLog\FALSCHEEINGABE.txt', 'a') as f:
             f.write(
                 '::VORGABEJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
         self.sendRequestLowSchema(self.gameid, self.gamerid, self.positions, self.colors, self.value)
-        with open('regLog\KORREKTEEINGABESTRING.txt', 'a') as f:
+        with open('regLog\FALSCHEEINGABE.txt', 'a') as f:
+            f.write(
+                '::LOWSCHEMAJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
+
+        print("Falsche Eingabe Strings")
+        self.gameid = "1"
+        self.gamerid = "Falsche Eingabe Strings"
+        self.positions = "3"
+        self.colors = "3"
+        self.value = "1234"
+
+        with open('regLog\FALSCHEEINGABESTRING.txt', 'a') as f:
+            f.write(
+                '::EMPTYJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
+        self.sendRequestDiffSchema(self.gameid, self.gamerid, self.positions, self.colors, self.value)
+        with open('regLog\FALSCHEEINGABESTRING.txt', 'a') as f:
+            f.write(
+                '::LOWSCHEMAJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
+        self.sendRequest(self.gameid, self.gamerid, self.positions, self.colors, self.value)
+        with open('regLog\FALSCHEEINGABESTRING.txt', 'a') as f:
+            f.write(
+                '::VORGABEJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
+        self.sendRequestLowSchema(self.gameid, self.gamerid, self.positions, self.colors, self.value)
+        with open('regLog\FALSCHEEINGABESTRING.txt', 'a') as f:
             f.write(
                 '::LOWSCHEMAJSON::\nPostJSON:\n' + self.schema + '\n---------\nResponse:\n' + self.response + '\n---------\n')
 
