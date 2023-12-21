@@ -1,10 +1,11 @@
 import requests
 import json
+import random
 from jsonschema import Draft7Validator
 from urllib.parse import urlparse, urlunparse
 import sys
 sys.path.append('../wise23-24_superhirn_25/')
-
+from ourUtils.Pseudoserver import Pseudoserver
 
 class RequestHandler:
     """
@@ -26,6 +27,8 @@ class RequestHandler:
         self.json_schema = ""
         self.postURL = self.generateURLwitPort(URL,Port)
         self.postPort = Port
+
+        self.ps = Pseudoserver()
         
 
     def generate_json_template(self):
@@ -89,35 +92,41 @@ class RequestHandler:
         
         request = self.prepareJson(game_id,value)
 
-        print(request)
+        #print(request)
         try:
-            response = requests.post(self.postURL, json=request,
+            response = requests.post(self.postURL, json=request, timeout=5,
                                  headers={'Content-type': 'application/json; charset=utf-8'})
             print(response.json())
-        except requests.RequestException as e:
-            print(f"Error: {e}")
 
-
-        if response.status_code == 200:
-            print("Zug erfolgreich abgeschickt")
-            """
-            print("___________")
-            print(response.json)
-            print("___________")
-            print("___________")
-            print(response.text)
-            print("___________")
-            """
-        
-        else:
-            print(f"URL {self.postURL} is not reachable. Status code: {response.status_code}")
-
-        with open('response.txt', 'a') as file:
-            file.write(response.text)
-            file.write('\n')
-            print("Response erfolgreich in response.txt geschrieben.")
+            if response.status_code == 200:
+                print("Zug erfolgreich abgeschickt")
+                """
+                print("___________")
+                print(response.json)
+                print("___________")
+                print("___________")
+                print(response.text)
+                print("___________")
+                """
+                with open('response.txt', 'a') as file:
+                    file.write(response.text)
+                    file.write('\n')
+                    print("Response erfolgreich in response.txt geschrieben.")
+                
+                return response.json()
             
-        return response.json()["json"]
+            else:
+                print(f"URL {self.postURL} is not reachable. Status code: {response.status_code}")
+
+        except requests.Timeout:
+            print(f"URL {self.postURL} is not reachable. Timeout")
+            print(f"Connecting to Pseudoserver...")
+            
+            return self.ps.respond(request)
+
+
+        
+
         
     def getResponse(self, response):
         #responseJSON = json.load(response.json())
@@ -151,21 +160,26 @@ class RequestHandler:
         else:
             # Der gegebene String ist eine IP-Adresse
             new_netloc = f"{url_or_ip}:{port}"
-            return new_netloc
+            return "".join(['http://',new_netloc])
             #new_url = urlunparse((parsed_url.scheme, new_netloc, parsed_url.path, parsed_url.params, parsed_url.query, parsed_url.fragment))
 
         return new_url
 
-
-a = RequestHandler("flrnbr", 4, 4, 'https://www.postman-echo.com/post', 443)
+'''
+a = RequestHandler("flrnbr", 4, 4, '141.45.38.219', 5001)
 a.readFile()
 print(a.postURL)
 #print(a.generateURLwitPort('127.0.0.1', 443))
 #print(a.generateURLwitPort('https://www.postman-echo.com/post', 443))
 
-response = a.sendRequest(0,"Hallo")
-print(response["gameid"])
-print(response["gamerid"])
-print(response["positions"])
-print(response["colors"])
-print(response["value"])
+response = a.sendRequest(0,"")
+for i in range(10):
+    code = [str(random.randint(1, 4)) for _ in range(4)]
+    codestr = "".join(code)
+    response = a.sendRequest(response["gameid"], codestr)
+    print(response["gameid"])
+    print(response["gamerid"])
+    print(response["positions"])
+    print(response["colors"])
+    print(response["value"])
+'''

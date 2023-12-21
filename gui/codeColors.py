@@ -31,8 +31,10 @@ class CodeColors:
     def coloredFormatStr( self, code_to_guess ) -> list:
 
         for buff, nr in enumerate( code_to_guess.copy() ):
-            
-            code_to_guess[ buff ] = colored( int(nr), self.getColor( int(nr )) )
+            if(int(nr) in list(self.colors.keys())):
+                code_to_guess[ buff ] = colored( int(nr), self.getColor( int(nr )) )
+            else:
+                code_to_guess[ buff ] = " "
 
         return code_to_guess
 

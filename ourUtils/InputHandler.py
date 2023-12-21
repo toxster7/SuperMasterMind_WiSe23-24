@@ -99,15 +99,15 @@ class InputHandler:
 
                 cprint("\t\t[*] Gebe den Code ein: ", "yellow", end="")
                 inp = input().split(".")
-                self.code_to_guess = [int(i) for i in inp]
-                
-                check_input        = validater.validateCode( self.code_to_guess, anzahl_pos, n_colors )
-
+                check_input        = validater.validateCode( inp, anzahl_pos, n_colors )
+             
                 # wenn das immer noch wahr ist, nach der
                 # validierung, wird die liste geleert
+  
                 if check_input:
-
                     self.code_to_guess = []
+                else:
+                    self.code_to_guess = [int(i) for i in inp]
 
             except KeyboardInterrupt:
                 print()
