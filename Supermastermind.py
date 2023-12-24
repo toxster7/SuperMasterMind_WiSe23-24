@@ -113,9 +113,6 @@ class Supermastermind:
                     input("Enter um zurück ins Menü zu gelangen:)")
                     break
               
-      
-            
-
 
 sm = Supermastermind()
 

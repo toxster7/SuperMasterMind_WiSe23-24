@@ -85,7 +85,7 @@ class InputHandler:
 
         validater   = Validator()
         check_input = True
-        cprint("\t\t[!] Der Code sollte folgendes Format habe, als Beispiel: 1.2.3.4 ", "magenta")
+        cprint("\t\t[!] Der Code sollte folgendes Format habe, als Beispiel: 1234 ", "magenta")
 
         # solange der benutzer nicht die richtige eingabe
         # gemacht hat, wird diese wiederholt
@@ -98,7 +98,7 @@ class InputHandler:
                 # platz, in der liste
 
                 cprint("\t\t[*] Gebe den Code ein: ", "yellow", end="")
-                inp = input().split(".")
+                inp = list(input())
                 check_input        = validater.validateCode( inp, anzahl_pos, n_colors )
              
                 # wenn das immer noch wahr ist, nach der
@@ -133,11 +133,10 @@ class InputHandler:
 
             try:
                 cprint("\t\t[*] Gebe deinen Guess ein: ", "yellow", end="")
-                self.guess = input().split(".")
+                self.guess = list(input())
                 check_input = validater.validateCode( self.guess, anzahl_pos, n_colors )
 
                 if check_input:
-
                     self.guess = []
 
             except KeyboardInterrupt:
@@ -157,7 +156,11 @@ class InputHandler:
 
             try:
                 cprint("\t\t[*] Gebe dein Feedback ein: ", "yellow", end="")
-                feedback = input().split(".")
+                feedback = list(input())
+                while len(feedback) < int(anzahl_pos):
+                    feedback.append("0")
+                feedback.sort(reverse=True)
+                
                 check_input = validater.validateFeedback( feedback, anzahl_pos )
 
                 if check_input:
