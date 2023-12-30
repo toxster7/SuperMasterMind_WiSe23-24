@@ -33,7 +33,6 @@ class Spielfeld:
 
 
     def showGamefield( self, anzahl_pos, code_to_guess,  guesser , guesses, feedbacks) -> None:
-
         # erstellen des handler obj
         # wird benötigt, um die spielopt.
         # zubekommen
@@ -51,32 +50,36 @@ class Spielfeld:
         else: 
             OsChecker.clearTerminal()
             
-            print("\t\t[BOT] Generie Code zum Raten...")
+            #print("\t\t[BOT] Generie Code zum Raten...")
             self.code = self.term_colors.coloredFormatStr( self.code )
 
-            print("\t\t[*] Das Spiel beginnt. Dein Gegner hat einen Code gesetzt")
-            print("\t\t[*] Du hast 10 versuche diesen Code zu erraten")
-            print("\t\t[DEBUG] ", end="")
-            for nr in self.code:
-                print(" "+ nr + " ", end="")
-            print()
+            #print("\t\t[*] Das Spiel beginnt. Dein Gegner hat einen Code gesetzt")
+            #print("\t\t[*] Du hast 10 versuche diesen Code zu erraten")
+
 
             # formatieren des spielfeldes,
             # nachdem die farben und der code festgelegt wurde
-        self.formatPlayfield( anzahl_pos ,guesses, feedbacks)
+        self.formatPlayfield( anzahl_pos ,guesses, feedbacks, guesser)
 
-    def formatPlayfield( self, anzahl_pos, guesses, feedbacks):
+    def formatPlayfield( self, anzahl_pos, guesses, feedbacks, guesser):
 
         format_print_5 = "\t\t| \t{nr_1}\t{nr_2}\t{nr_3}\t{nr_4}\t{nr_5}\t || \t{f_1}\t{f_2}\t{f_3}\t{f_4}\t{f_5}\t |"
-        format_print_4 = "\t\t| {nr_1}\t{nr_2}\t{nr_3}\t{nr_4}  || \t{f_1}\t{f_2}\t{f_3}\t{f_4}  |"
+        format_print_4 = "\t\t| \t{nr_1}\t{nr_2}\t{nr_3}\t{nr_4}  || \t{f_1}\t{f_2}\t{f_3}\t{f_4}  |"
         play_grid      = ["\t\t+-Guesses"+ "-" * 26 +  "++" +  "-Feedback"+ "-" * 21 + "+"]
 
         
         OsChecker.clearTerminal()
-        print("\t\t[DEBUG] ", end="")
-        for nr in self.code:
-            print(" "+ nr + " ", end="")
-        print()
+        
+        if not guesser:
+            print("\t\t[CODE] ", end="")
+            for nr in self.code:
+                print(" "+ nr + " ", end="")
+                print()
+        if guesser:
+            print("\t\t[CODE] ", end="")
+            for nr in self.code:
+                cprint(" "+ 'X' + " ", "light_grey", end="")
+            print()
         new_feedbacks = feedbacks.copy()
         print(play_grid[0])
         for i, guess in enumerate(guesses):
@@ -112,10 +115,16 @@ class Spielfeld:
                                             ))
 
             OsChecker.clearTerminal()
-            print("\t\t[DEBUG] ", end="")
-            for nr in self.code:
-                print(" "+ nr + " ", end="")
-            print()
+            if not guesser:
+                print("\t\t[CODE] ", end="")
+                for nr in self.code:
+                   print(" "+ nr + " ", end="")
+                print()
+            if guesser:
+                print("\t\t[CODE] ", end="")
+                for nr in self.code:
+                   cprint(" "+ 'X' + " ", "light_grey", end="")
+                print()
             for field in play_grid:
 
                 cprint(field)

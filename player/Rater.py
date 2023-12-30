@@ -27,7 +27,10 @@ class BotRater(Rater):
     def __init__(self, code_len, n_colors) -> None:
         super().__init__(code_len, n_colors)
         self.possible_codes = self.get_all_possible_codes()
+        self.num_to_rem = []
         self.used_numbers = set()
+        self.used_numbers_list = []
+        self.n_correct = 0
 
     def get_all_possible_codes(self):
     # Erzeugt alle möglichen Kombinationen von Farben der gegebenen Länge.
@@ -35,8 +38,8 @@ class BotRater(Rater):
         return list(product(self.colors, repeat= int(self.code_len)))
 
     def calcCorPosCorCol(self, feedback):
-        corPos = feedback.count(8)
-        corCol = feedback.count(7)
+        corPos = feedback.count('8')
+        corCol = feedback.count('7')
         return corPos, corCol
 
     def giveFeedback(self, code,guess)->list:
@@ -89,22 +92,24 @@ class BotRater(Rater):
                 else:
                     feedbackDict[feedbackstr] = 1
 
-            max_list = max(feedbackDict.values(), default=0)
+            max_list = min(feedbackDict.values(), default=0)
             if max_list > max_count:
                 max_count = max_list
                 best_guess = code
         
         return best_guess
 
+    def enhanceRandomGuess(random_guess):
+        pass
 
     def rate(self, guesses, feedbacks)->list:
         
         ###Für einfarbige Versuche, die nicht zwingend dem optimal verlauf entsprechen wird hier die Farbe random ausgewählt
         available_numbers = list(set(range(1, int(self.n_colors)+1)) - self.used_numbers)  # Verfügbare Zahlen für die aktuelle Runde
-        
         if(len(available_numbers) > 0):
             random_number = random.choice(available_numbers)  # Auswahl einer Zufallszahl aus den verfügbaren Zahlen
-            self.used_numbers.add(random_number)  # Hinzufügen der ausgewählten Zahl zu den verwendeten Zahlen
+            self.used_numbers.add(random_number)
+            self.used_numbers_list.append(random_number)  # Hinzufügen der ausgewählten Zahl zu den verwendeten Zahlen
         else:
             random_number = 1
 
@@ -116,8 +121,19 @@ class BotRater(Rater):
         else:
             guess = self.minimize_maximums(guesses[len(guesses)-1].copy(), feedbacks[len(guesses)-1].copy())             
             if((len(guesses) <= 3) and (int(self.n_colors)>5)):
+                #nutze wissen aus vorhergehenden Versuchen ohne zu rechnen
+                
+                eights, sevens = self.calcCorPosCorCol(feedbacks[len(guesses)-1].copy())
+                #print(f"Eigts {eights} and Sevens {sevens}")
+                if(eights + sevens > 0):
+                    for i in range((eights + sevens) - self.n_correct):
+                        self.num_to_rem.append(self.used_numbers_list[len(self.used_numbers_list)-2])
+                        self.n_correct = len(self.num_to_rem)
                 number = random_number
-                guess = (self.colors[number-1],) * int(self.code_len)
+                guess = list((self.colors[number-1],) * int(self.code_len))
+                
+                for j ,z in enumerate(self.num_to_rem):
+                    guess[j] = z     
             else:
                 guess = self.findMaxFeedback()
             if(not guess):

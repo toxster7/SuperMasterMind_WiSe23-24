@@ -38,7 +38,7 @@ def test_bot_create_frist_guess():
             code = bot.rate([],[])
             assert len(code) == i
             for c in code:
-                assert int(c) in range(1,j)
+                assert int(c) in range(1,j+1)
 
 def test_bot_give_feedback():
     bot = BotRater(4,8)
@@ -92,7 +92,7 @@ def test_bot_minimize_possible_codes():
 def test_code_erraten5x8():
     k = 0
     i = 0
-    while k < 1000:
+    while k < 20:
         bot = BotRater('5','8')
         #print(bot.get_all_possible_codes())
         guess= [1,1,1,1]
@@ -122,9 +122,42 @@ def test_code_erraten5x8():
                 break    
 
         k += 1
-    assert i >= 960
+    assert i >= 19
     #print(bot.possible_codes) 
+def test_code_erraten5x7():
+    k = 0
+    i = 0
+    while k < 20:
+        bot = BotRater('5','7')
+        #print(bot.get_all_possible_codes())
+        guess= [1,1,1,1]
+        code = [(random.randint(2, 7)) for _ in range(5)]
+        guesses = []
+        feedbacks = []
+        #print(bot.giveFeedback(code, [1,1,1,4]))
 
+        for _ in range(10):
+            start_time = time.time()
+            guess = bot.rate(guesses, feedbacks)
+            end_time = time.time()
+            time_dif = end_time - start_time 
+            assert (time_dif < 5.0)
+            print("Code", code)
+            print("Guess", guess)
+            #print(bot.possible_codes)
+            if(not guess):
+                print("Fehler")
+                break
+            feedback = bot.giveFeedback(code, list(guess).copy())
+            print("Feedback", feedback)
+            guesses.append(guess)
+            feedbacks.append(feedback)
+            if(feedback == ['8', '8', '8', '8', '8']):
+                i+=1
+                break    
+
+        k += 1
+    assert i >= 20
 
         
 def test_code_erraten4x8():

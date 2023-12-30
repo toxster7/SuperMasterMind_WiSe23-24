@@ -14,6 +14,9 @@ from player.Coder import *
 
 def test_Botcoder_createCode() -> None:
     coder = BotCoder(4,5)
+    code = coder.createCode()
+    for c in code :
+        assert int(c) <= 5
     assert coder.code_len == 4
     assert coder.n_colors == 5
 

@@ -66,14 +66,16 @@ class Supermastermind:
                 cprint( "\t\t\t[-] Immer diese Interrupts :(", "red" )
                 cprint( "\t\t\t[+] Exiting...", "green" )
                 sys.exit(0)
-            
             #Set Game Settings
             self.settings = self.menu.handler.getUserInput()
+            
             if(self.settings["guesser"]):
                 if(not self.menu.handler.run_local):
                     self.__createCoderNetAndHumanGuesser__()
                 else:    
                     self.__createCoderBotAndHumanGuesser__()
+                guesser = True
+
             else:
                 self.__createCoderHumanAndBotGuesser__()
             
@@ -86,9 +88,9 @@ class Supermastermind:
                 
                 #show intial board
                 self.spielfeld.showGamefield( self.settings["anzahl_pos"], self.code.copy() ,self.settings["guesser"], self.guesses.copy(), self.feedbacks.copy())
-                print(F"Code {self.code}")
-                print(f"Feedbacks {self.feedbacks}")
-                print(f"Codes {self.guesses}")
+                #print(F"Code {self.code}")
+                #print(f"Feedbacks {self.feedbacks}")
+                #print(f"Codes {self.guesses}")
                 #let guesser guess
                 guess = self.rater.rate(self.guesses.copy(),self.feedbacks.copy())
                 if(guess == None):

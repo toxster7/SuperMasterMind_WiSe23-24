@@ -94,12 +94,12 @@ class Validator:
                 return False
 
             else:
-                cprint("\t\t[-] Falsches Format... z. B. 1.2.3.4.5", "red")
+                cprint("\t\t[-] Falsches Format... z. B. 1234(5)", "red")
                 return True
 
         except ValueError:
 
-            cprint("\t\t[-] Das war keine Zahlen...", "red")
+            cprint("\t\t[-] Das waren keine Zahlen...", "red")
             return True
 
     def validateFeedback( self, input_to_validate, code_len ) -> bool:
@@ -138,18 +138,18 @@ class Validator:
                     # wird true zurückgegeben
 
                     if ((int( ele ) not in range(7,9)) and (not int(ele) == 0)):
-                        cprint("\t\t[-] Ungültiges Feedback... Bitte nutze nur 7,8 und 0", "red")
+                        cprint("\t\t[-] Ungültiges Feedback... Bitte nutze nur 7 und 8", "red")
                         return True
 
                 return False
 
             else:
-                cprint("\t\t[-] Falsches Format... z. B. 7.7.7.0.0", "red")
+                cprint("\t\t[-] Falsches Format... z. B. 87...", "red")
                 return True
 
         except ValueError:
 
-            cprint("\t\t[-] Das war keine Zahlen...", "red")
+            cprint("\t\t[-] Das waren keine Zahlen...", "red")
             return True
 
     def validateUrl( self, input_to_validate ) -> bool:
