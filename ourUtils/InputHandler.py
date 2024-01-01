@@ -218,11 +218,13 @@ class InputHandler:
 
             self.run_local = local_game
             
-            cprint("\t\t[*] Bitte gebe die URL des Servers ein: ", "yellow", end="")
-            self.server_addr = input()
-
-            cprint("\t\t[*] Bitte gebe den Server Port an: ", "yellow", end="")
-            self.server_port = input()
+            #cprint("\t\t[*] Bitte gebe die URL des Servers ein: ", "yellow", end="")
+            while(not validater.validateUrl(self.server_addr)):
+                cprint("\t\t[*] Bitte gebe die IP des Servers ein: ", "yellow", end="")
+                self.server_addr = input()
+            while(not validater.validatePort(self.server_port)):
+                cprint("\t\t[*] Bitte gebe den Server Port an: ", "yellow", end="")
+                self.server_port = input()
 
     def getUserInput( self ) -> dict:
         

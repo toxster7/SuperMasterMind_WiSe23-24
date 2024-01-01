@@ -1,4 +1,5 @@
 from termcolor import cprint
+import re
 import sys
 sys.path.append('../wise23-24_superhirn_25/')
 
@@ -152,7 +153,25 @@ class Validator:
             cprint("\t\t[-] Das waren keine Zahlen...", "red")
             return True
 
-    def validateUrl( self, input_to_validate ) -> bool:
-
-        pass
+    def validateUrl( self, ip ) -> bool:
+        pattern = r'^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$'
+    
+        # Überprüfe, ob die Eingabe der IP-Adressenstruktur entspricht
+        if re.match(pattern, ip):
+            # Trenne die Zahlenblöcke auf
+            octets = ip.split('.')
+            # Überprüfe, ob jede Zahl in einem gültigen Bereich liegt (0-255)
+            return all(0 <= int(octet) <= 255 for octet in octets)
+    
+        return False
+    
+    def validatePort(self, port):
+        try:
+            port_num = int(port)
+            if 0 <= port_num <= 65535:
+                return True
+            else:
+                return False
+        except ValueError:
+            return False
 
