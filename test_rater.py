@@ -1,6 +1,7 @@
 import math
 import time
 import pytest
+import itertools
 from player.Rater import *
 from player.Coder import *
 
@@ -88,6 +89,26 @@ def test_bot_minimize_possible_codes():
                 for c in list(gcode):
                     assert c != 1
 
+def test_code_erraten5x8_all():
+    # Generiere alle möglichen Kombinationen der Zahlen 1 bis 8 mit einer Länge von 5
+    possible_combinations = list(itertools.product(range(1, 9), repeat=5)) 
+    print(possible_combinations) 
+    anzahl_runden = 0
+    for code in possible_combinations:
+        bot = BotRater('5','8')
+        feedback = None
+        guesses = []
+        feedbacks = []
+        while feedback != ['8', '8', '8', '8', '8']:
+            guess = bot.rate(guesses, feedbacks)
+            feedback = bot.giveFeedback(list(code), list(guess).copy())
+            guesses.append(guess)
+            feedbacks.append(feedback)
+            anzahl_runden += 1
+    dia = anzahl_runden/len(possible_combinations)
+    assert dia < 10
+
+        
 
 def test_code_erraten5x8():
     k = 0
