@@ -35,7 +35,7 @@ def test_giveFeedback_2() -> None:
     feedback = coder.giveFeedback([3,2,5,2,4])
     assert feedback == [8,8,0,0,0]
 
-def test_giveFeedback_2() -> None:
+def test_giveFeedback_3() -> None:
     coder = BotCoder(5,6)
     coder.code = [6,6,6,6,6]
     feedback = coder.giveFeedback([3,2,5,2,4])
