@@ -1,4 +1,3 @@
-import pytest
 import sys
 sys.path.append('../wise23-24_superhirn_25/')
 from player.Rater import BotRater
@@ -39,8 +38,12 @@ def test_rater_1() -> None:
         guesses.append(guess)
         feedbacks.append(feedback)
 
-
     assert sum(list(map(int, feedbacks[0]))) < sum(list(map(int, feedbacks[1])))
+
+def test_rater_2() -> None:
+    rater = BotRater(3,4)
+    code = rater.possible_codes.copy()
+    
 
     
 
