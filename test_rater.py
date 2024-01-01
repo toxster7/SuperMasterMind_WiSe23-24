@@ -113,7 +113,7 @@ def test_code_erraten5x8_all():
 def test_code_erraten5x8():
     k = 0
     i = 0
-    while k < 20:
+    while k < 1000:
         bot = BotRater('5','8')
         #print(bot.get_all_possible_codes())
         guess= [1,1,1,1]
@@ -143,12 +143,12 @@ def test_code_erraten5x8():
                 break    
 
         k += 1
-    assert i >= 19
+    assert i >= 980
     #print(bot.possible_codes) 
 def test_code_erraten5x7():
     k = 0
     i = 0
-    while k < 20:
+    while k < 1000:
         bot = BotRater('5','7')
         #print(bot.get_all_possible_codes())
         guess= [1,1,1,1]
@@ -178,13 +178,13 @@ def test_code_erraten5x7():
                 break    
 
         k += 1
-    assert i >= 20
+    assert i >= 980
 
         
 def test_code_erraten4x8():
     k = 0
     i = 1
-    while k <= 100:
+    while k <= 1000:
         bot = BotRater('4','8')
         #print(bot.get_all_possible_codes())
         guess= [1,1,1,1]
@@ -214,7 +214,7 @@ def test_code_erraten4x8():
                 
         k += 1
 
-    assert i >= 100
+    assert i >= 980
     #print(bot.possible_codes) 
 
 
