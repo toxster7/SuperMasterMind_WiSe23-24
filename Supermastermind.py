@@ -114,7 +114,10 @@ class Supermastermind:
                     print("Der Rater hat gewonnen!")
                     input("Enter um zurück ins Menü zu gelangen:)")
                     break
-              
+            if(len(feedback) != feedback.count('8') and guess != None):
+                print("Der Rater hat verloren! :(")
+                input("Enter um zurück ins Menü zu gelangen:)")
+                
 
 sm = Supermastermind()
 
