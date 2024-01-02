@@ -77,33 +77,24 @@ class NetCoder(Coder):
 
 
     def createCode(self)->list:
-        # TODO: nur zum testen kann raus, wenn wir mit server verbinden
-        #hCoder = BotCoder(self.code_len,self.n_colors)
-        #code_str = "".join([str(i) for i in hCoder.createCode()])
-        #code_json = self.request_handler.sendRequest(0,code_str)
+        
         code_json = self.request_handler.sendRequest(0,"")
-        #print(code_json)
+       
         self.game_id = code_json["gameid"]
-        #self.game_id = code
+        
         self.code = [int(s) for s in code_json["value"]]
         
         return self.code
 
     def giveFeedback(self, guess)->list:
         guess_str = "".join([str(i) for i in guess])
-        #print(guess)
-        #print(guess_str)
+      
         feedback_json = self.request_handler.sendRequest(self.game_id, guess_str)
         feedback = [s for s in feedback_json["value"]]
-        #print(feedback)
+        
         while(len(feedback)<int(self.code_len)):
             feedback.append('0')
-        #nur zum Testen kann rausgenommen werden, sobald wir mit server verbinden können
-        ##hCoder = BotCoder(self.code_len, self.n_colors)
-        #hCoder.code = self.code.copy()
-        #print("Coder Code ",hCoder.code)
-        #feedback = hCoder.giveFeedback(feedback.copy())
-        ############
+
         return feedback
 '''
 coder = NetCoder(5 , 4,'141.45.38.219', 5001, "flrnbr")
