@@ -1,14 +1,16 @@
 from termcolor import cprint, colored
 import sys
-import os
-sys.path.insert(0, '../wise23-24_superhirn_25/')
+sys.path.append('../wise23-24_superhirn_25/')
 # own modules
 # TODO: anpassen der imports
-from .MenuPrinter import *
-from utilsMind.OsChecker import *
-from utilsMind.InputHandler import *
-from utilsMind.GuiValidater import *
-from .Spielfeld import *
+from gui.MenuPrinter import MenuPrinter 
+from gui.OsChecker import OsChecker
+from ourUtils.InputHandler import InputHandler
+from gui.Spielfeld import Spielfeld
+
+
+
+
 
 class Menu:
     """
@@ -32,6 +34,7 @@ class Menu:
         self.game_grid = Spielfeld()
         self.handler   = InputHandler()
         self.guesser   = True
+        
 
     def runMenus( self ):
 
@@ -76,8 +79,8 @@ class Menu:
 
             # prüfen welche option der nutzer gewählt hat
             # bzw. als der benutzer spielen möchte
+            
             # wenn der benutzer '1' -> Codierer
-
             if self.auswahl == "1":
                 
                 # clearen des terminals   
@@ -90,15 +93,15 @@ class Menu:
                 # oder über das netzwerk spielen möchte
                 # mit dieser funktion wird auch gleichzeitig
                 # das menü angezeigt
-
+                
                 OsChecker.clearTerminal() 
                 MenuPrinter.displayGameType() 
                 self.guesser = False
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
-
+                self.handler.guesser = False
+                
             # wenn der benutzer '2' -> Rater
-
             elif self.auswahl == "2":
 
                 # clearen des terminals   
@@ -116,7 +119,9 @@ class Menu:
                 MenuPrinter.displayGameType()
                 self.auswahl = self.handler.getUserSelection()
                 self.selectLocalOrNet()
-
+                self.handler.guesser = True
+            return self.handler
+                
     def selectLocalOrNet( self ) -> None:
 
         """
@@ -133,17 +138,18 @@ class Menu:
         if self.auswahl == "1":
 
             self.handler.setUserInput( True )
-            self.game_grid.showGamefield( self.handler, self.guesser )
+            #self.game_grid.showGamefield( self.handler, self.guesser )
 
         elif self.auswahl == "2":
 
             self.handler.setUserInput( False )
-            self.game_grid.showGamefield( self.handler, self.guesser )
+            #self.game_grid.showGamefield( self.handler, self.guesser )
+            
 
 # nur für das testen hier,
 # wenn später aufgerufen,
 # dann sollte das in die main klasse!
-"""
+'''
 try:
 
     m = Menu()
@@ -155,4 +161,4 @@ except KeyboardInterrupt as key_inter:
     cprint( "\t\t\t[-] Immer diese Interrupts :(", "red" )
     cprint( "\t\t\t[+] Exiting...", "green" )
     sys.exit(0)
-    """
+'''
